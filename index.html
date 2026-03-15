@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Calipso Bingo 75 - App Oficial</title>
+    <style>
+        /* RESET Y VARIABLES GLOBALES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-color: #f0fdf4;
+            --text-dark: #2d3748;
+            --primary-green: #2E8B57;
+            --bingo-red: #e53e3e;
+            --bingo-blue: #4299e1;
+            --bingo-yellow: #f6e05e;
+            --color-b: #e53e3e;
+            --color-i: #f6ad55;
+            --color-n: #48bb78;
+            --color-g: #4299e1;
+            --color-o: #9f7aea;
+            --table-bg: #ffffff;
+            --linea-win: #ff69b4;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-lg: 0 4px 8px rgba(0,0,0,0.15);
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.25s ease;
+            --border-radius-sm: 10px;
+            --border-radius-md: 16px;
+            --border-radius-lg: 24px;
+            --border-radius-xl: 32px;
+            --border-radius-circle: 50%;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.5;
+            font-size: 14px;
+            background-image: radial-gradient(#2E8B57 0.8px, transparent 0.8px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        /* UTILIDADES */
+        .hidden {
+            display: none !important;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* ANIMACIONES */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* PANTALLA 1 - BIENVENIDA */
+        .pantalla1 {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            padding: 30px 20px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            border: 2px solid var(--primary-green);
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+            animation: fadeIn 0.3s var(--transition-fast);
+        }
+
+        .bienvenido {
+            font-size: 2.2em;
+            font-weight: 800;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.03);
+        }
+
+        /* LOGO PRINCIPAL - CAMBIA LA RUTA DE LA IMAGEN */
+        .logo-pantalla1 {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            margin: 0 auto 25px;
+            display: block;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-md);
+        }
+
+        .divider {
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(to right, transparent, var(--primary-green), var(--bingo-blue), transparent);
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        /* Selector de modo de juego */
+        .modo-juego {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        
+        .btn-modo {
+            flex: 0 1 auto;
+            padding: 14px 20px;
+            border: none;
+            border-radius: var(--border-radius-xl);
+            background: var(--bingo-blue);
+            color: white;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            touch-action: manipulation;
+            box-shadow: var(--shadow-md);
+            min-width: 130px;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-modo:first-child {
+            background: var(--bingo-red);
+        }
+        
+        .btn-modo:last-child {
+            background: var(--primary-green);
+        }
+        
+        .btn-modo:active {
+            transform: scale(0.97);
+        }
+
+        /* Texto promocional */
+        .promo-text {
+            font-size: 1.2em;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .promo-text span {
+            color: var(--bingo-red);
+            font-size: 1.3em;
+            font-weight: 800;
+        }
+
+        .footer-link {
+            margin: 15px 0 25px;
+        }
+        
+        .footer-link a {
+            font-size: 1.6em;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 700;
+            padding: 12px 25px;
+            border-radius: var(--border-radius-xl);
+            background: #f0fdf4;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary-green);
+            min-height: 70px;
+            transition: all var(--transition-fast);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .footer-link a:active {
+            transform: scale(0.98);
+        }
+
+        .btn-config {
+            background: var(--bingo-blue);
+            color: white;
+            border: none;
+            padding: 16px 28px;
+            border-radius: var(--border-radius-xl);
+            font-size: 1.3em;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 15px 0;
+            width: 100%;
+            box-shadow: var(--shadow-md);
+            touch-action: manipulation;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all var(--transition-fast);
+        }
+        
+        .btn-config:active {
+            transform: scale(0.98);
+        }
+
+        /* Modal de configuración */
+        .config-modal {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 28px 22px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            border: 3px solid var(--primary-green);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 450px;
+            z-index: 2000;
+            display: none;
+        }
+
+        .config-modal.show {
+            display: block;
+        }
+
+        .config-title {
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .config-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 14px 18px;
+            background: #f0fdf4;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--primary-green);
+        }
+
+        .config-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.1em;
+        }
+
+        .config-value {
+            color: var(--primary-green);
+            font-weight: 700;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .btn-cerrar {
+            background: var(--bingo-red);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: var(--border-radius-xl);
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            touch-action: manipulation;
+            transition: all var(--transition-fast);
+        }
+        
+        .btn-cerrar:active {
+            transform: scale(0.98);
+        }
+
+        /* Toggle switches */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: .2s;
+            border-radius: 30px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .2s;
+            border-radius: 50%;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary-green);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        select, input[type="range"] {
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 2px solid var(--primary-green);
+            background: white;
+            font-size: 1em;
+            width: 130px;
+            outline: none;
+        }
+        
+        select:focus, input[type="range"]:focus {
+            border-color: var(--bingo-blue);
+            box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+        }
+
+        /* Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            display: none;
+        }
+        
+        .modal-overlay.show {
+            display: block;
+        }
+
+        /* PANTALLA 2 - JUEGO */
+        .pantalla2 {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 15px 12px;
+            box-shadow: var(--shadow-md);
+            display: none;
+            border: 2px solid var(--primary-green);
+            flex: 1;
+            animation: fadeIn 0.3s var(--transition-fast);
+        }
+
+        /* Header con botón volver - CON IMAGEN PERSONALIZABLE */
+        .pantalla2-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-green);
+        }
+        
+        /* BOTÓN VOLVER - CAMBIA LA RUTA DE LA IMAGEN */
+        .btn-volver {
+            background: var(--bingo-red);
+            background-image: url('flecha.png'); /* CAMBIA ESTA RUTA */
+            background-size: 80% 80%;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: var(--border-radius-circle);
+            font-size: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            touch-action: manipulation;
+            margin-right: 12px;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-volver::after {
+            content: "←";
+            font-size: 2em;
+            opacity: 0;
+            position: absolute;
+        }
+
+        .btn-volver:active {
+            transform: scale(0.95);
+        }
+        
+        .pantalla2-titulo {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: var(--primary-green);
+            flex: 1;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        /* Layout móvil de 2 columnas */
+        .game-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+        }
+
+        /* Columna izquierda - Tabla BINGO */
+        .left-panel {
+            grid-column: 1;
+            width: 100%;
+        }
+
+        .bingo-letters {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
+            overflow: hidden;
+            font-weight: 800;
+            font-size: 1.3em;
+            width: 100%;
+        }
+        
+        .letter-col {
+            text-align: center;
+            padding: 8px 0;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .letter-col.b { background: var(--color-b); }
+        .letter-col.i { background: var(--color-i); }
+        .letter-col.n { background: var(--color-n); }
+        .letter-col.g { background: var(--color-g); }
+        .letter-col.o { background: var(--color-o); }
+
+        .numbers-table {
+            display: flex;
+            flex-direction: column;
+            border: 2px solid var(--primary-green);
+            border-top: none;
+            border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
+            overflow: hidden;
+            background: var(--table-bg);
+            width: 100%;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            border-bottom: 1px solid var(--primary-green);
+            width: 100%;
+            padding: 2px 0;
+        }
+        
+        .table-row:last-child { border-bottom: none; }
+
+        .table-cell {
+            text-align: center;
+            padding: 3px 1px;
+            border-right: 1px solid var(--primary-green);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .table-cell:last-child { border-right: none; }
+
+        /* Estilo de número circular 3D */
+        .numero-3d {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: var(--border-radius-circle);
+            font-weight: 700;
+            font-size: 0.85em;
+            color: white;
+            box-shadow: 
+                0 2px 0 rgba(0,0,0,0.1),
+                0 3px 5px rgba(0,0,0,0.1),
+                inset 0 -1px 2px rgba(0,0,0,0.1),
+                inset 0 1px 2px rgba(255,255,255,0.4);
+            transition: all var(--transition-fast);
+            margin: 0 auto;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+        }
+
+        .table-cell:nth-child(1) .numero-3d { 
+            background: linear-gradient(145deg, var(--color-b), #b91c1c); 
+        }
+        .table-cell:nth-child(2) .numero-3d { 
+            background: linear-gradient(145deg, var(--color-i), #dd6b20); 
+        }
+        .table-cell:nth-child(3) .numero-3d { 
+            background: linear-gradient(145deg, var(--color-n), #2f855a); 
+        }
+        .table-cell:nth-child(4) .numero-3d { 
+            background: linear-gradient(145deg, var(--color-g), #2b6cb0); 
+        }
+        .table-cell:nth-child(5) .numero-3d { 
+            background: linear-gradient(145deg, var(--color-o), #6b46c1); 
+        }
+
+        .table-cell.active .numero-3d {
+            background: linear-gradient(145deg, var(--bingo-yellow), #d69e2e) !important;
+            transform: scale(1.1);
+            box-shadow: 
+                0 3px 0 rgba(0,0,0,0.15),
+                0 4px 8px rgba(236, 201, 75, 0.3),
+                inset 0 -1px 2px rgba(0,0,0,0.2),
+                inset 0 1px 3px rgba(255,255,255,0.6);
+            border: 1px solid white;
+            color: #2d3748;
+        }
+
+        /* Estilo para línea ganadora */
+        .table-row.winner .table-cell .numero-3d {
+            background: linear-gradient(145deg, var(--linea-win), #ff1493) !important;
+            transform: scale(1.05);
+            box-shadow: 
+                0 3px 0 rgba(0,0,0,0.15),
+                0 4px 8px rgba(255, 105, 180, 0.3),
+                inset 0 -1px 2px rgba(0,0,0,0.2),
+                inset 0 1px 3px rgba(255,255,255,0.6);
+            border: 2px solid gold;
+            color: white;
+        }
+
+        /* Columna derecha - Controles */
+        .right-panel {
+            grid-column: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ball-display {
+            text-align: center;
+            background: #f0fdf4;
+            padding: 10px 5px;
+            border-radius: var(--border-radius-md);
+            border: 2px solid var(--primary-green);
+        }
+        
+        /* Bola actual en 3D circular */
+        .ball-number-large {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            border-radius: var(--border-radius-circle);
+            font-size: 1.8em;
+            font-weight: 800;
+            color: white;
+            background: linear-gradient(145deg, var(--bingo-red), #b91c1c);
+            box-shadow: 
+                0 4px 0 rgba(0,0,0,0.15),
+                0 6px 12px rgba(0,0,0,0.15),
+                inset 0 -2px 4px rgba(0,0,0,0.2),
+                inset 0 3px 5px rgba(255,255,255,0.6);
+            margin: 0 auto 5px;
+            text-shadow: 0 2px 2px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+        
+        .ball-info {
+            font-size: 0.85em;
+            color: var(--primary-green);
+            font-weight: 700;
+        }
+
+        .recent-balls {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .recent-ball {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--border-radius-circle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.95em;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.1), 0 3px 5px rgba(0,0,0,0.1);
+            color: white;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+        }
+        
+        .recent-ball[data-col="b"] { background: linear-gradient(145deg, var(--color-b), #b91c1c); }
+        .recent-ball[data-col="i"] { background: linear-gradient(145deg, var(--color-i), #dd6b20); }
+        .recent-ball[data-col="n"] { background: linear-gradient(145deg, var(--color-n), #2f855a); }
+        .recent-ball[data-col="g"] { background: linear-gradient(145deg, var(--color-g), #2b6cb0); }
+        .recent-ball[data-col="o"] { background: linear-gradient(145deg, var(--color-o), #6b46c1); }
+        .recent-ball[data-col="none"] { background: linear-gradient(145deg, #a0aec0, #718096); }
+
+        .start-indicator {
+            text-align: center;
+            font-size: 0.8em;
+            color: var(--primary-green);
+            font-weight: 700;
+            padding: 5px;
+            background: #f0fdf4;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--primary-green);
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-control-small {
+            flex: 1;
+            padding: 14px 5px;
+            border: none;
+            border-radius: var(--border-radius-lg);
+            color: white;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            touch-action: manipulation;
+            min-height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.05s ease;
+        }
+
+        .btn-play {
+            background: var(--bingo-blue);
+        }
+        
+        .btn-play:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .btn-play.pausa {
+            background: #f6ad55;
+        }
+
+        .btn-stop {
+            background: var(--bingo-red);
+        }
+        
+        .btn-stop:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-bingo {
+            background: var(--bingo-red);
+            color: white;
+            border: none;
+            padding: 14px 8px;
+            border-radius: var(--border-radius-lg);
+            font-size: 1.4em;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 0 #a03a3a, 0 5px 10px rgba(229,62,62,0.3);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.05s ease;
+            letter-spacing: 1px;
+        }
+        
+        .btn-bingo:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #a03a3a, 0 2px 5px rgba(229,62,62,0.2);
+        }
+
+        .btn-bingo.hidden {
+            display: none;
+        }
+
+        .entra-text {
+            text-align: center;
+            font-size: 0.85em;
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .web-link {
+            text-align: center;
+        }
+        
+        .web-link a {
+            font-size: 0.95em;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 6px;
+            background: #f0fdf4;
+            border-radius: var(--border-radius-lg);
+            border: 2px solid var(--primary-green);
+            min-height: 44px;
+        }
+
+        /* LOGO FOOTER - CAMBIA LA RUTA DE LA IMAGEN */
+        .logo-footer-p2 {
+            width: 120px;
+            height: 65px;
+            object-fit: contain;
+            margin: 5px auto 0;
+            display: block;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+        }
+
+        /* Modales */
+        .modal {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 20px 18px;
+            border: 3px solid var(--primary-green);
+            display: none;
+            text-align: center;
+            z-index: 2000;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 350px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal p {
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: var(--text-dark);
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn-modal {
+            padding: 12px 25px;
+            border: none;
+            border-radius: var(--border-radius-xl);
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            min-height: 48px;
+            min-width: 95px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.05s ease;
+        }
+        
+        .btn-modal.si { 
+            background: var(--primary-green); 
+            color: white;
+        }
+        
+        .btn-modal.no { 
+            background: var(--bingo-red); 
+            color: white;
+        }
+        
+        .btn-modal:active {
+            transform: scale(0.97);
+        }
+
+        .numeros-modal {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 20px 15px;
+            border: 3px solid var(--primary-green);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 380px;
+            z-index: 2000;
+            display: none;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .numeros-modal h3 {
+            color: var(--primary-green);
+            margin-bottom: 12px;
+            font-size: 1.3em;
+            font-weight: 800;
+        }
+
+        .numeros-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            max-height: 280px;
+            overflow-y: auto;
+            padding: 8px;
+            margin-bottom: 12px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius-sm);
+        }
+
+        .numero-item {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--border-radius-circle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+            font-size: 0.9em;
+        }
+
+        .btn-cerrar-modal {
+            background: var(--bingo-blue);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--border-radius-xl);
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .btn-cerrar-modal:active {
+            transform: scale(0.98);
+        }
+
+        .result-actions {
+            background: white;
+            border-radius: var(--border-radius-md);
+            padding: 6px 4px;
+            margin: 6px 0;
+            border: 2px solid var(--primary-green);
+            display: none;
+            text-align: center;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* BOTONES VER NÚMEROS Y NUEVA PARTIDA - TAMAÑO REDUCIDO */
+        .btn-result {
+            padding: 4px 8px;
+            border: none;
+            border-radius: var(--border-radius-lg);
+            font-size: 0.7em;
+            font-weight: 700;
+            cursor: pointer;
+            min-height: 26px;
+            min-width: 70px;
+            background: var(--bingo-blue);
+            color: white;
+            box-shadow: var(--shadow-sm);
+            letter-spacing: 0.3px;
+        }
+        
+        .btn-result:active {
+            transform: scale(0.96);
+        }
+
+        /* Media Queries para móviles */
+        @media (max-width: 380px) {
+            .game-layout { gap: 8px; }
+            
+            .numero-3d {
+                width: 22px;
+                height: 22px;
+                font-size: 0.75em;
+            }
+            
+            .ball-number-large {
+                width: 70px;
+                height: 70px;
+                font-size: 1.5em;
+            }
+            
+            .recent-ball { 
+                width: 28px; 
+                height: 28px; 
+                font-size: 0.85em; 
+            }
+            
+            .btn-control-small { 
+                min-height: 48px; 
+                font-size: 0.95em; 
+                padding: 12px 3px;
+            }
+            
+            .btn-result { 
+                min-width: 60px; 
+                padding: 4px 6px;
+                font-size: 0.65em;
+                min-height: 24px;
+            }
+            
+            .action-buttons {
+                gap: 6px;
+            }
+            
+            .modal { 
+                max-width: 300px;
+                padding: 16px 14px;
+            }
+            
+            .modal p { 
+                font-size: 1.1em; 
+                margin-bottom: 15px;
+            }
+            
+            .btn-modal { 
+                padding: 10px 18px; 
+                min-width: 80px; 
+                font-size: 1em;
+                min-height: 42px;
+            }
+            
+            .numero-item { 
+                width: 32px; 
+                height: 32px; 
+                font-size: 0.8em; 
+            }
+            
+            .btn-modo { 
+                font-size: 0.95em; 
+                padding: 12px 12px;
+                min-width: 100px;
+            }
+            
+            .pantalla2-titulo {
+                font-size: 1.3em;
+            }
+        }
+
+        /* Soporte para pantallas más grandes */
+        @media (min-width: 501px) {
+            .app { 
+                max-width: 500px; 
+            }
+        }
+
+        /* Prevenir scroll cuando los modales están abiertos */
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        /* Mejoras de accesibilidad */
+        button:focus-visible {
+            outline: 2px solid var(--bingo-blue);
+            outline-offset: 2px;
+        }
+    </style>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ffcc00">
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+             navigator.serviceWorker.register('/sw.js');
+        });
+    }
+</script>
+</head>
+<body>
+    <div class="app">
+        <!-- PANTALLA 1: BIENVENIDA -->
+        <div class="pantalla1" id="pantalla1">
+            <div class="bienvenido">BIENVENIDO A</div>
+            
+            <!-- LOGO PRINCIPAL - CAMBIA LA RUTA DE LA IMAGEN -->
+            <img src="Logo-oficial-lineal.jpg" alt="Logo Calipso Bingo" class="logo-pantalla1">
+            
+            <!-- Selector de modo de juego -->
+            <div class="modo-juego">
+                <button class="btn-modo" id="btnJugar75">🎯 BINGO 75</button>
+                <button class="btn-modo" id="btnJugarLinea">📏 BINGO LÍNEA</button>
+            </div>
+            
+            <!-- Botón para abrir configuración -->
+            <button class="btn-config" id="btnAbrirConfig">
+                <span>⚙</span> CONFIGURACIÓN
+            </button>
+            
+            <div class="divider"></div>
+            
+            <!-- Texto promocional -->
+            <div class="promo-text">
+                <span>Entra, Juega y Gana en:</span>
+            </div>
+            
+            <div class="footer-link">
+                <a href="https://www.calipsobingo.com" target="_blank" rel="noopener noreferrer">www.calipsobingo.com</a>
+            </div>
+            
+            <div style="margin-top: 20px; font-size: 0.9em; color: #718096;">© 2026 Calipso Bingo - Versión 2.0</div>
+        </div>
+
+        <!-- MODAL DE CONFIGURACIÓN -->
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="config-modal" id="configModal">
+            <div class="config-title">⚙ CONFIGURACIÓN</div>
+            
+            <div class="config-option">
+                <span class="config-label">Sonido</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="sonido" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="config-option">
+                <span class="config-label">Voz</span>
+                <select id="voz">
+                    <option value="femenina">Femenina</option>
+                    <option value="masculina">Masculina</option>
+                </select>
+            </div>
+            
+            <div class="config-option">
+                <span class="config-label">Extracción auto</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="autoExtraccion" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="config-option">
+                <span class="config-label">Tiempo</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <input type="range" id="tiempoBolas" min="4" max="15" value="4" step="1" style="width: 100px;">
+                    <span class="config-value" id="tiempoValor">4s</span>
+                </div>
+            </div>
+            
+            <div class="config-option">
+                <span class="config-label">Repetir bolas</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="repetirBolas" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <button class="btn-cerrar" id="btnCerrarConfig">CERRAR</button>
+        </div>
+
+        <!-- MODAL DE NÚMEROS FLOTANTE -->
+        <div class="numeros-modal" id="numerosModal">
+            <h3>📋 NÚMEROS SORTEADOS</h3>
+            <div class="numeros-grid" id="numerosModalGrid"></div>
+            <button class="btn-cerrar-modal" id="cerrarNumerosModal">CERRAR</button>
+        </div>
+
+        <!-- PANTALLA 2: JUEGO -->
+        <div class="pantalla2" id="pantalla2">
+            <!-- Header con botón volver -->
+            <div class="pantalla2-header">
+                <!-- BOTÓN VOLVER - USA LA MISMA IMAGEN CONFIGURADA EN CSS -->
+                <button class="btn-volver" id="btnVolver"></button>
+                <div class="pantalla2-titulo" id="pantalla2Titulo">CALIPSO BINGO 75</div>
+            </div>
+
+            <div class="game-layout">
+                <!-- COLUMNA IZQUIERDA: TABLA -->
+                <div class="left-panel">
+                    <div class="bingo-letters">
+                        <div class="letter-col b">B</div>
+                        <div class="letter-col i">I</div>
+                        <div class="letter-col n">N</div>
+                        <div class="letter-col g">G</div>
+                        <div class="letter-col o">O</div>
+                    </div>
+                    <div class="numbers-table" id="numbersTable"></div>
+                </div>
+
+                <!-- COLUMNA DERECHA: CONTROLES -->
+                <div class="right-panel">
+                    <div class="ball-display">
+                        <div class="ball-number-large" id="bolaActual">0</div>
+                        <div class="ball-info" id="ballInfo">BOLAS: 0/75</div>
+                    </div>
+
+                    <div class="recent-balls" id="recentBalls">
+                        <div class="recent-ball" data-col="none">-</div>
+                        <div class="recent-ball" data-col="none">-</div>
+                        <div class="recent-ball" data-col="none">-</div>
+                        <div class="recent-ball" data-col="none">-</div>
+                    </div>
+
+                    <div class="start-indicator" id="startIndicator">⚪ Juego listo</div>
+
+                    <div class="control-buttons">
+                        <button class="btn-control-small btn-play" id="playPauseBtn">▶ PLAY</button>
+                        <button class="btn-control-small btn-stop" id="stopBtn">⏹ STOP</button>
+                    </div>
+
+                    <button class="btn-bingo" id="bingoBtn">BINGO</button>
+
+                    <div class="entra-text">Entra, juega y gana en:</div>
+                    <div class="web-link">
+                        <a href="https://www.calipsobingo.com" target="_blank" rel="noopener noreferrer">www.calipsobingo.com</a>
+                    </div>
+
+                    <!-- LOGO FOOTER - CAMBIA LA RUTA DE LA IMAGEN -->
+                    <img src="Logo-oficial-lineal.jpg" alt="Logo Calipso Bingo" class="logo-footer-p2">
+
+                    <!-- MODAL DE CONFIRMACIÓN STOP -->
+                    <div class="modal" id="stopConfirmModal">
+                        <p>¿Finalizar partida?</p>
+                        <div class="modal-buttons">
+                            <button class="btn-modal si" id="stopConfirmSi">SI</button>
+                            <button class="btn-modal no" id="stopConfirmNo">NO</button>
+                        </div>
+                    </div>
+
+                    <!-- MODAL DE BINGO -->
+                    <div class="modal" id="bingoCheck">
+                        <p id="bingoMensaje">¿Bingo correcto?</p>
+                        <div class="modal-buttons">
+                            <button class="btn-modal si" id="bingoSi">SI</button>
+                            <button class="btn-modal no" id="bingoNo">NO</button>
+                        </div>
+                    </div>
+
+                    <!-- MODAL DE LÍNEA COMPLETA -->
+                    <div class="modal" id="lineaGanadoraModal">
+                        <p id="lineaGanadoraMensaje"></p>
+                        <div class="modal-buttons">
+                            <button class="btn-modal si" id="lineaGanadoraOk">OK</button>
+                        </div>
+                    </div>
+
+                    <div class="result-actions" id="resultActions" style="display: none;">
+                        <div class="action-buttons">
+                            <button class="btn-result" id="verNumerosBtn">VER NÚMEROS</button>
+                            <button class="btn-result" id="nuevaPartidaBtn">NUEVA PARTIDA</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            "use strict";
+            
+            // ==================== CONFIGURACIÓN Y VARIABLES GLOBALES ====================
+            
+            // Estado de la aplicación
+            const Estado = {
+                juegoActivo: false,
+                juegoIniciado: false,
+                pausado: true,
+                modoJuego: '75',
+                bolasSorteadas: [],
+                ultimasBolas: [],
+                lineasGanadoras: new Array(15).fill(false),
+                lineaGanadoraIndex: -1,
+                totalBolas: 75,
+                intervaloJuego: null,
+                usuarioInteractuo: false,
+                mensajeBienvenidaMostrado: false,
+                ultimoEstadoPausa: false,
+                lineaEnProceso: false
+            };
+
+            // Configuración del usuario
+            const Config = {
+                sonido: true,
+                voz: 'femenina',
+                autoExtraccion: true,
+                tiempoBolas: 4,
+                repetirBolas: true
+            };
+
+            // Detectar navegador
+            const Navegador = {
+                isOpera: navigator.userAgent.includes('OPR') || navigator.userAgent.includes('Opera'),
+                isChrome: navigator.userAgent.includes('Chrome') && !navigator.userAgent.includes('OPR'),
+                isSafari: navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome'),
+                isFirefox: navigator.userAgent.includes('Firefox')
+            };
+
+            // ==================== ELEMENTOS DOM ====================
+            
+            const DOM = {
+                pantalla1: document.getElementById('pantalla1'),
+                pantalla2: document.getElementById('pantalla2'),
+                configModal: document.getElementById('configModal'),
+                modalOverlay: document.getElementById('modalOverlay'),
+                btnAbrirConfig: document.getElementById('btnAbrirConfig'),
+                btnCerrarConfig: document.getElementById('btnCerrarConfig'),
+                btnJugar75: document.getElementById('btnJugar75'),
+                btnJugarLinea: document.getElementById('btnJugarLinea'),
+                btnVolver: document.getElementById('btnVolver'),
+                pantalla2Titulo: document.getElementById('pantalla2Titulo'),
+                numbersTable: document.getElementById('numbersTable'),
+                bolaActual: document.getElementById('bolaActual'),
+                ballInfo: document.getElementById('ballInfo'),
+                playPauseBtn: document.getElementById('playPauseBtn'),
+                stopBtn: document.getElementById('stopBtn'),
+                bingoBtn: document.getElementById('bingoBtn'),
+                startIndicator: document.getElementById('startIndicator'),
+                recentBalls: document.getElementById('recentBalls'),
+                stopConfirmModal: document.getElementById('stopConfirmModal'),
+                bingoCheck: document.getElementById('bingoCheck'),
+                bingoMensaje: document.getElementById('bingoMensaje'),
+                lineaGanadoraModal: document.getElementById('lineaGanadoraModal'),
+                lineaGanadoraMensaje: document.getElementById('lineaGanadoraMensaje'),
+                lineaGanadoraOk: document.getElementById('lineaGanadoraOk'),
+                numerosModal: document.getElementById('numerosModal'),
+                numerosModalGrid: document.getElementById('numerosModalGrid'),
+                cerrarNumerosModal: document.getElementById('cerrarNumerosModal'),
+                resultActions: document.getElementById('resultActions'),
+                stopConfirmSi: document.getElementById('stopConfirmSi'),
+                stopConfirmNo: document.getElementById('stopConfirmNo'),
+                bingoSi: document.getElementById('bingoSi'),
+                bingoNo: document.getElementById('bingoNo'),
+                verNumerosBtn: document.getElementById('verNumerosBtn'),
+                nuevaPartidaBtn: document.getElementById('nuevaPartidaBtn'),
+                sonido: document.getElementById('sonido'),
+                voz: document.getElementById('voz'),
+                autoExtraccion: document.getElementById('autoExtraccion'),
+                tiempoBolas: document.getElementById('tiempoBolas'),
+                tiempoValor: document.getElementById('tiempoValor'),
+                repetirBolas: document.getElementById('repetirBolas'),
+                webLink: document.getElementById('webLink')
+            };
+
+            // ==================== FUNCIONES DE UTILIDAD ====================
+            
+            function getLetra(numero) {
+                if (numero >= 1 && numero <= 15) return 'B';
+                if (numero >= 16 && numero <= 30) return 'I';
+                if (numero >= 31 && numero <= 45) return 'N';
+                if (numero >= 46 && numero <= 60) return 'G';
+                if (numero >= 61 && numero <= 75) return 'O';
+                return '';
+            }
+
+            function getColumna(numero) {
+                if (numero >= 1 && numero <= 15) return 'b';
+                if (numero >= 16 && numero <= 30) return 'i';
+                if (numero >= 31 && numero <= 45) return 'n';
+                if (numero >= 46 && numero <= 60) return 'g';
+                if (numero >= 61 && numero <= 75) return 'o';
+                return 'none';
+            }
+
+            function getColorFromNumber(num) {
+                if (num <= 15) return 'var(--color-b)';
+                if (num <= 30) return 'var(--color-i)';
+                if (num <= 45) return 'var(--color-n)';
+                if (num <= 60) return 'var(--color-g)';
+                return 'var(--color-o)';
+            }
+
+            function getColorLetra(numero) {
+                if (numero >= 1 && numero <= 15) return 'var(--color-b)';
+                if (numero >= 16 && numero <= 30) return 'var(--color-i)';
+                if (numero >= 31 && numero <= 45) return 'var(--color-n)';
+                if (numero >= 46 && numero <= 60) return 'var(--color-g)';
+                return 'var(--color-o)';
+            }
+
+            function actualizarBallInfo() {
+                if (DOM.ballInfo) {
+                    DOM.ballInfo.textContent = `BOLAS: ${Estado.bolasSorteadas.length}/${Estado.totalBolas}`;
+                }
+            }
+
+            function actualizarUI() {
+                if (Estado.bolasSorteadas.length > 0) {
+                    const ultimaBola = Estado.bolasSorteadas[Estado.bolasSorteadas.length - 1];
+                    const letra = getLetra(ultimaBola);
+                    DOM.bolaActual.textContent = `${letra} ${ultimaBola}`;
+                    
+                    const color = getColorLetra(ultimaBola);
+                    DOM.bolaActual.style.background = `linear-gradient(145deg, ${color}, #b91c1c)`;
+                }
+                actualizarBallInfo();
+                
+                for (let i = 0; i < 4; i++) {
+                    const ball = DOM.recentBalls.children[i];
+                    if (ball) {
+                        if (i < Estado.ultimasBolas.length) {
+                            const num = Estado.ultimasBolas[i];
+                            ball.textContent = num;
+                            ball.setAttribute('data-col', getColumna(num));
+                        } else {
+                            ball.textContent = '-';
+                            ball.setAttribute('data-col', 'none');
+                        }
+                    }
+                }
+            }
+
+            function crearTablaNumeros() {
+                const filas = [
+                    [1,16,31,46,61], [2,17,32,47,62], [3,18,33,48,63],
+                    [4,19,34,49,64], [5,20,35,50,65], [6,21,36,51,66],
+                    [7,22,37,52,67], [8,23,38,53,68], [9,24,39,54,69],
+                    [10,25,40,55,70], [11,26,41,56,71], [12,27,42,57,72],
+                    [13,28,43,58,73], [14,29,44,59,74], [15,30,45,60,75]
+                ];
+                
+                DOM.numbersTable.innerHTML = '';
+                filas.forEach((fila, index) => {
+                    const row = document.createElement('div');
+                    row.className = 'table-row';
+                    row.id = `fila-${index}`;
+                    
+                    fila.forEach(num => {
+                        const cell = document.createElement('div');
+                        cell.className = 'table-cell';
+                        cell.id = `cell-${num}`;
+                        
+                        const numeroDiv = document.createElement('div');
+                        numeroDiv.className = 'numero-3d';
+                        numeroDiv.textContent = num;
+                        cell.appendChild(numeroDiv);
+                        row.appendChild(cell);
+                    });
+                    
+                    DOM.numbersTable.appendChild(row);
+                });
+            }
+
+            function reiniciarJuego() {
+                Estado.juegoActivo = false;
+                Estado.juegoIniciado = false;
+                Estado.pausado = true;
+                Estado.bolasSorteadas = [];
+                Estado.ultimasBolas = [];
+                Estado.lineasGanadoras = new Array(15).fill(false);
+                Estado.lineaGanadoraIndex = -1;
+                Estado.mensajeBienvenidaMostrado = false;
+                Estado.ultimoEstadoPausa = false;
+                Estado.lineaEnProceso = false;
+                
+                document.querySelectorAll('.table-row').forEach(row => {
+                    row.classList.remove('winner');
+                });
+                
+                document.querySelectorAll('.table-cell.active').forEach(el => {
+                    el.classList.remove('active');
+                });
+                
+                DOM.bolaActual.textContent = '0';
+                actualizarBallInfo();
+                
+                for (let i = 0; i < 4; i++) {
+                    const ball = DOM.recentBalls.children[i];
+                    if (ball) {
+                        ball.textContent = '-';
+                        ball.setAttribute('data-col', 'none');
+                    }
+                }
+                
+                DOM.playPauseBtn.textContent = '▶ PLAY';
+                DOM.playPauseBtn.classList.remove('pausa');
+                DOM.startIndicator.innerHTML = '⚪ Juego listo';
+                DOM.startIndicator.style.color = '#2E8B57';
+                
+                DOM.stopConfirmModal.style.display = 'none';
+                DOM.bingoCheck.style.display = 'none';
+                DOM.lineaGanadoraModal.style.display = 'none';
+                DOM.resultActions.style.display = 'none';
+                DOM.numerosModal.style.display = 'none';
+                
+                if (Estado.intervaloJuego) {
+                    clearInterval(Estado.intervaloJuego);
+                    Estado.intervaloJuego = null;
+                }
+                
+                crearTablaNumeros();
+            }
+
+            // ==================== FUNCIONES DE VOZ ====================
+            
+            function hablar(texto) {
+                if (!Config.sonido) return;
+                if (!Estado.usuarioInteractuo) {
+                    return;
+                }
+                
+                if (!window.speechSynthesis) {
+                    return;
+                }
+                
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                }
+                
+                const utterance = new SpeechSynthesisUtterance(texto);
+                utterance.lang = 'es-ES';
+                utterance.rate = 0.9;
+                utterance.pitch = Config.voz === 'femenina' ? 1.2 : 0.8;
+                utterance.volume = 1;
+                
+                const voices = window.speechSynthesis.getVoices();
+                const vozEspañola = voices.find(v => 
+                    v.lang.includes('es') || 
+                    v.lang.includes('ES') || 
+                    v.lang.includes('es-ES') || 
+                    v.lang.includes('es-MX')
+                );
+                
+                if (vozEspañola) {
+                    utterance.voice = vozEspañola;
+                }
+                
+                try {
+                    window.speechSynthesis.speak(utterance);
+                } catch (error) {
+                    // Silencioso
+                }
+            }
+
+            function precargarVoces() {
+                if (window.speechSynthesis) {
+                    window.speechSynthesis.getVoices();
+                }
+            }
+
+            // ==================== LÓGICA DEL JUEGO ====================
+            
+            function iniciarExtraccionAutomatica() {
+                if (Estado.intervaloJuego) clearInterval(Estado.intervaloJuego);
+                
+                Estado.intervaloJuego = setInterval(() => {
+                    if (!Estado.pausado && Estado.juegoActivo) extraerBola();
+                }, Config.tiempoBolas * 1000);
+            }
+
+            function extraerBola() {
+                if (!Estado.juegoActivo || Estado.lineaEnProceso) return;
+                
+                let nuevaBola;
+                if (Config.repetirBolas) {
+                    if (Estado.bolasSorteadas.length >= Estado.totalBolas) {
+                        return;
+                    }
+                    
+                    do { 
+                        nuevaBola = Math.floor(Math.random() * Estado.totalBolas) + 1; 
+                    } while (Estado.bolasSorteadas.includes(nuevaBola));
+                } else {
+                    nuevaBola = Math.floor(Math.random() * Estado.totalBolas) + 1;
+                }
+                
+                Estado.bolasSorteadas.push(nuevaBola);
+                Estado.ultimasBolas.unshift(nuevaBola);
+                if (Estado.ultimasBolas.length > 4) Estado.ultimasBolas.pop();
+                
+                actualizarUI();
+                
+                const cell = document.getElementById(`cell-${nuevaBola}`);
+                if (cell) cell.classList.add('active');
+                
+                const letra = getLetra(nuevaBola);
+                hablar(`${letra} ${nuevaBola}`);
+                
+                if (Estado.modoJuego === 'linea') {
+                    verificarTodasLasLineas(nuevaBola);
+                }
+            }
+
+            function iniciarJuego() {
+                Estado.juegoActivo = true;
+                Estado.juegoIniciado = true;
+                Estado.pausado = false;
+                DOM.playPauseBtn.textContent = '⏸ PAUSA';
+                DOM.playPauseBtn.classList.add('pausa');
+                DOM.startIndicator.innerHTML = '🔴 Juego en curso';
+                DOM.startIndicator.style.color = '#e53e3e';
+                
+                if (Config.autoExtraccion) {
+                    iniciarExtraccionAutomatica();
+                }
+                
+                if (!Estado.mensajeBienvenidaMostrado) {
+                    hablar("Comienza el bingo");
+                    Estado.mensajeBienvenidaMostrado = true;
+                }
+            }
+
+            function verificarTodasLasLineas(ultimaBola) {
+                for (let fila = 0; fila < 15; fila++) {
+                    if (Estado.lineasGanadoras[fila]) continue;
+                    
+                    const numerosFila = [
+                        1 + fila,
+                        16 + fila,
+                        31 + fila,
+                        46 + fila,
+                        61 + fila
+                    ];
+                    
+                    if (numerosFila.includes(ultimaBola)) {
+                        const lineaCompleta = numerosFila.every(num => Estado.bolasSorteadas.includes(num));
+                        
+                        if (lineaCompleta) {
+                            Estado.lineaEnProceso = true;
+                            
+                            setTimeout(() => {
+                                Estado.lineasGanadoras[fila] = true;
+                                Estado.lineaGanadoraIndex = fila;
+                                
+                                const filaElement = document.getElementById(`fila-${fila}`);
+                                if (filaElement) {
+                                    filaElement.classList.add('winner');
+                                }
+                                
+                                if (Estado.intervaloJuego) {
+                                    clearInterval(Estado.intervaloJuego);
+                                    Estado.intervaloJuego = null;
+                                }
+                                
+                                Estado.pausado = true;
+                                Estado.juegoActivo = false;
+                                DOM.playPauseBtn.textContent = '▶ PLAY';
+                                DOM.playPauseBtn.classList.remove('pausa');
+                                
+                                const mensaje = `¡LÍNEA ${fila + 1} COMPLETA! Un jugador ha ganado.`;
+                                DOM.lineaGanadoraMensaje.textContent = mensaje;
+                                DOM.lineaGanadoraModal.style.display = 'block';
+                                hablar(`¡Línea ${fila + 1} completa! Hay un ganador.`);
+                                
+                                DOM.resultActions.style.display = 'block';
+                                Estado.lineaEnProceso = false;
+                            }, 2500);
+                            
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // ==================== MANEJADORES DE EVENTOS ====================
+            
+            // Botones de modo de juego
+            DOM.btnJugar75.addEventListener('click', (e) => {
+                e.preventDefault();
+                Estado.usuarioInteractuo = true;
+                Estado.modoJuego = '75';
+                DOM.pantalla1.style.display = 'none';
+                DOM.pantalla2.style.display = 'block';
+                DOM.pantalla2Titulo.textContent = 'CALIPSO BINGO 75';
+                DOM.bingoBtn.classList.remove('hidden');
+                reiniciarJuego();
+            });
+            
+            DOM.btnJugar75.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                Estado.usuarioInteractuo = true;
+                Estado.modoJuego = '75';
+                DOM.pantalla1.style.display = 'none';
+                DOM.pantalla2.style.display = 'block';
+                DOM.pantalla2Titulo.textContent = 'CALIPSO BINGO 75';
+                DOM.bingoBtn.classList.remove('hidden');
+                reiniciarJuego();
+            }, { passive: false });
+
+            DOM.btnJugarLinea.addEventListener('click', (e) => {
+                e.preventDefault();
+                Estado.usuarioInteractuo = true;
+                Estado.modoJuego = 'linea';
+                DOM.pantalla1.style.display = 'none';
+                DOM.pantalla2.style.display = 'block';
+                DOM.pantalla2Titulo.textContent = 'BINGO EN LÍNEA';
+                DOM.bingoBtn.classList.add('hidden');
+                reiniciarJuego();
+            });
+            
+            DOM.btnJugarLinea.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                Estado.usuarioInteractuo = true;
+                Estado.modoJuego = 'linea';
+                DOM.pantalla1.style.display = 'none';
+                DOM.pantalla2.style.display = 'block';
+                DOM.pantalla2Titulo.textContent = 'BINGO EN LÍNEA';
+                DOM.bingoBtn.classList.add('hidden');
+                reiniciarJuego();
+            }, { passive: false });
+
+            // Botón volver
+            DOM.btnVolver.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (Estado.intervaloJuego) {
+                    clearInterval(Estado.intervaloJuego);
+                    Estado.intervaloJuego = null;
+                }
+                DOM.pantalla2.style.display = 'none';
+                DOM.pantalla1.style.display = 'block';
+            });
+            
+            DOM.btnVolver.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                if (Estado.intervaloJuego) {
+                    clearInterval(Estado.intervaloJuego);
+                    Estado.intervaloJuego = null;
+                }
+                DOM.pantalla2.style.display = 'none';
+                DOM.pantalla1.style.display = 'block';
+            }, { passive: false });
+
+            // Configuración
+            DOM.btnAbrirConfig.addEventListener('click', (e) => {
+                e.preventDefault();
+                Estado.usuarioInteractuo = true;
+                DOM.configModal.classList.add('show');
+                DOM.modalOverlay.classList.add('show');
+                document.body.classList.add('modal-open');
+            });
+            
+            DOM.btnAbrirConfig.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                Estado.usuarioInteractuo = true;
+                DOM.configModal.classList.add('show');
+                DOM.modalOverlay.classList.add('show');
+                document.body.classList.add('modal-open');
+            }, { passive: false });
+
+            function cerrarConfig() {
+                DOM.configModal.classList.remove('show');
+                DOM.modalOverlay.classList.remove('show');
+                document.body.classList.remove('modal-open');
+            }
+
+            DOM.btnCerrarConfig.addEventListener('click', cerrarConfig);
+            DOM.modalOverlay.addEventListener('click', cerrarConfig);
+
+            // Inputs de configuración
+            DOM.sonido.addEventListener('change', (e) => Config.sonido = e.target.checked);
+            DOM.voz.addEventListener('change', (e) => Config.voz = e.target.value);
+            DOM.autoExtraccion.addEventListener('change', (e) => Config.autoExtraccion = e.target.checked);
+            
+            DOM.tiempoBolas.addEventListener('input', (e) => {
+                Config.tiempoBolas = parseInt(e.target.value);
+                DOM.tiempoValor.textContent = Config.tiempoBolas + 's';
+                if (Estado.juegoActivo && !Estado.pausado && Config.autoExtraccion) {
+                    iniciarExtraccionAutomatica();
+                }
+            });
+            
+            DOM.repetirBolas.addEventListener('change', (e) => Config.repetirBolas = e.target.checked);
+
+            // Botón PLAY/PAUSA
+            function togglePlayPause(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                if (!Estado.juegoIniciado) {
+                    iniciarJuego();
+                } else {
+                    Estado.pausado = !Estado.pausado;
+                    DOM.playPauseBtn.textContent = Estado.pausado ? '▶ PLAY' : '⏸ PAUSA';
+                    
+                    if (Estado.pausado) {
+                        DOM.playPauseBtn.classList.remove('pausa');
+                        DOM.startIndicator.innerHTML = '⏸ Juego pausado';
+                        if (!Estado.ultimoEstadoPausa) {
+                            hablar("Juego pausado");
+                            Estado.ultimoEstadoPausa = true;
+                        }
+                        if (Estado.intervaloJuego) {
+                            clearInterval(Estado.intervaloJuego);
+                            Estado.intervaloJuego = null;
+                        }
+                    } else {
+                        DOM.playPauseBtn.classList.add('pausa');
+                        DOM.startIndicator.innerHTML = '🔴 Juego en curso';
+                        if (Estado.ultimoEstadoPausa) {
+                            hablar("Continúa el juego");
+                            Estado.ultimoEstadoPausa = false;
+                        }
+                        if (Config.autoExtraccion && !Estado.intervaloJuego) {
+                            iniciarExtraccionAutomatica();
+                        }
+                    }
+                }
+            }
+
+            DOM.playPauseBtn.addEventListener('click', togglePlayPause);
+            DOM.playPauseBtn.addEventListener('touchstart', togglePlayPause, { passive: false });
+
+            // Botón STOP
+            function mostrarConfirmacionStop(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                if (Estado.juegoActivo) {
+                    Estado.pausado = true;
+                    DOM.playPauseBtn.textContent = '▶ PLAY';
+                    DOM.playPauseBtn.classList.remove('pausa');
+                    if (Estado.intervaloJuego) {
+                        clearInterval(Estado.intervaloJuego);
+                        Estado.intervaloJuego = null;
+                    }
+                }
+                
+                DOM.stopConfirmModal.style.display = 'block';
+            }
+
+            DOM.stopBtn.addEventListener('click', mostrarConfirmacionStop);
+            DOM.stopBtn.addEventListener('touchstart', mostrarConfirmacionStop, { passive: false });
+
+            function confirmarStop(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                DOM.stopConfirmModal.style.display = 'none';
+                
+                Estado.juegoActivo = false;
+                Estado.juegoIniciado = false;
+                Estado.pausado = true;
+                DOM.playPauseBtn.textContent = '▶ PLAY';
+                DOM.playPauseBtn.classList.remove('pausa');
+                DOM.startIndicator.innerHTML = '⚪ Juego listo';
+                DOM.startIndicator.style.color = '#2E8B57';
+                
+                if (Estado.intervaloJuego) {
+                    clearInterval(Estado.intervaloJuego);
+                    Estado.intervaloJuego = null;
+                }
+                
+                reiniciarJuego();
+                DOM.resultActions.style.display = 'block';
+                hablar("Partida finalizada");
+            }
+
+            function cancelarStop(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                DOM.stopConfirmModal.style.display = 'none';
+                
+                if (Estado.juegoIniciado) {
+                    Estado.pausado = false;
+                    Estado.juegoActivo = true;
+                    DOM.playPauseBtn.textContent = '⏸ PAUSA';
+                    DOM.playPauseBtn.classList.add('pausa');
+                    DOM.startIndicator.innerHTML = '🔴 Juego en curso';
+                    
+                    if (Config.autoExtraccion && !Estado.intervaloJuego) {
+                        iniciarExtraccionAutomatica();
+                    }
+                }
+            }
+
+            DOM.stopConfirmSi.addEventListener('click', confirmarStop);
+            DOM.stopConfirmSi.addEventListener('touchstart', (e) => { e.preventDefault(); confirmarStop(e); }, { passive: false });
+            
+            DOM.stopConfirmNo.addEventListener('click', cancelarStop);
+            DOM.stopConfirmNo.addEventListener('touchstart', (e) => { e.preventDefault(); cancelarStop(e); }, { passive: false });
+
+            // Botón BINGO
+            function verificarBingo(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                if (Estado.bolasSorteadas.length > 0 && Estado.modoJuego === '75') {
+                    if (Estado.intervaloJuego) {
+                        clearInterval(Estado.intervaloJuego);
+                        Estado.intervaloJuego = null;
+                    }
+                    
+                    Estado.pausado = true;
+                    Estado.juegoActivo = false;
+                    DOM.playPauseBtn.textContent = '▶ PLAY';
+                    DOM.playPauseBtn.classList.remove('pausa');
+                    
+                    DOM.bingoMensaje.textContent = '¿Bingo correcto?';
+                    DOM.bingoCheck.style.display = 'block';
+                }
+            }
+
+            DOM.bingoBtn.addEventListener('click', verificarBingo);
+            DOM.bingoBtn.addEventListener('touchstart', verificarBingo, { passive: false });
+
+            function bingoCorrecto(correcto, e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                DOM.bingoCheck.style.display = 'none';
+                
+                if (correcto) {
+                    DOM.resultActions.style.display = 'block';
+                    hablar("¡Bingo! Felicidades");
+                } else {
+                    Estado.juegoActivo = true;
+                    Estado.pausado = false;
+                    DOM.playPauseBtn.textContent = '⏸ PAUSA';
+                    DOM.playPauseBtn.classList.add('pausa');
+                    DOM.startIndicator.innerHTML = '🔴 Juego en curso';
+                    if (Config.autoExtraccion) iniciarExtraccionAutomatica();
+                }
+            }
+
+            DOM.bingoSi.addEventListener('click', (e) => bingoCorrecto(true, e));
+            DOM.bingoSi.addEventListener('touchstart', (e) => { e.preventDefault(); bingoCorrecto(true, e); }, { passive: false });
+            
+            DOM.bingoNo.addEventListener('click', (e) => bingoCorrecto(false, e));
+            DOM.bingoNo.addEventListener('touchstart', (e) => { e.preventDefault(); bingoCorrecto(false, e); }, { passive: false });
+
+            // Modal de línea ganadora
+            DOM.lineaGanadoraOk.addEventListener('click', (e) => {
+                e.preventDefault();
+                DOM.lineaGanadoraModal.style.display = 'none';
+            });
+            
+            DOM.lineaGanadoraOk.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                DOM.lineaGanadoraModal.style.display = 'none';
+            }, { passive: false });
+
+            // Botones de resultados
+            function mostrarNumeros(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                if (DOM.numerosModalGrid) {
+                    DOM.numerosModalGrid.innerHTML = Estado.bolasSorteadas.map(num => {
+                        const letra = getLetra(num);
+                        const color = getColorFromNumber(num);
+                        return `<div class="numero-item" style="background: ${color};">${letra}${num}</div>`;
+                    }).join('');
+                }
+                
+                DOM.numerosModal.style.display = 'block';
+                DOM.modalOverlay.classList.add('show');
+                document.body.classList.add('modal-open');
+            }
+
+            DOM.verNumerosBtn.addEventListener('click', mostrarNumeros);
+            DOM.verNumerosBtn.addEventListener('touchstart', (e) => { e.preventDefault(); mostrarNumeros(e); }, { passive: false });
+
+            DOM.cerrarNumerosModal.addEventListener('click', () => {
+                DOM.numerosModal.style.display = 'none';
+                DOM.modalOverlay.classList.remove('show');
+                document.body.classList.remove('modal-open');
+            });
+
+            DOM.nuevaPartidaBtn.addEventListener('click', (e) => {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                reiniciarJuego();
+            });
+            
+            DOM.nuevaPartidaBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                reiniciarJuego();
+            }, { passive: false });
+
+            // Enlace web
+            if (DOM.webLink) {
+                DOM.webLink.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+
+            // Detectar interacción del usuario
+            document.addEventListener('click', () => {
+                Estado.usuarioInteractuo = true;
+            });
+            
+            document.addEventListener('touchstart', () => {
+                Estado.usuarioInteractuo = true;
+            }, { passive: true });
+
+            // Inicialización
+            document.addEventListener('DOMContentLoaded', function() {
+                precargarVoces();
+                crearTablaNumeros();
+                
+                // Cerrar modales con tecla Escape
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        if (DOM.configModal.classList.contains('show')) {
+                            cerrarConfig();
+                        }
+                        if (DOM.numerosModal.style.display === 'block') {
+                            DOM.numerosModal.style.display = 'none';
+                            DOM.modalOverlay.classList.remove('show');
+                            document.body.classList.remove('modal-open');
+                        }
+                        DOM.stopConfirmModal.style.display = 'none';
+                        DOM.bingoCheck.style.display = 'none';
+                        DOM.lineaGanadoraModal.style.display = 'none';
+                    }
+                });
+            });
+
+            // Limpiar intervalos al cerrar/recargar
+            window.addEventListener('beforeunload', () => {
+                if (Estado.intervaloJuego) {
+                    clearInterval(Estado.intervaloJuego);
+                }
+            });
+
+        })();
+    </script>
+</body>
+</html>
