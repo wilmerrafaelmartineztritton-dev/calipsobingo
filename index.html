@@ -407,12 +407,12 @@
         .btn-volver {
             background: var(--bingo-red);
             background-image: url('flecha.png'); /* CAMBIA ESTA RUTA */
-            background-size: 80% 80%;
+            background-size: 90% 90%;
             background-position: center;
             background-repeat: no-repeat;
             border: none;
-            width: 48px;
-            height: 48px;
+            width: 60px;
+            height: 60px;
             border-radius: var(--border-radius-circle);
             font-size: 0;
             cursor: pointer;
@@ -1125,7 +1125,7 @@
             <div class="pantalla2-header">
                 <!-- BOTÓN VOLVER - USA LA MISMA IMAGEN CONFIGURADA EN CSS -->
                 <button class="btn-volver" id="btnVolver"></button>
-                <div class="pantalla2-titulo" id="pantalla2Titulo">CALIPSO BINGO 75</div>
+                <div class="pantalla2-titulo" id="pantalla2Titulo">BINGO 75</div>
             </div>
 
             <div class="game-layout">
@@ -1615,7 +1615,7 @@
                 Estado.modoJuego = '75';
                 DOM.pantalla1.style.display = 'none';
                 DOM.pantalla2.style.display = 'block';
-                DOM.pantalla2Titulo.textContent = 'CALIPSO BINGO 75';
+                DOM.pantalla2Titulo.textContent = 'BINGO 75';
                 DOM.bingoBtn.classList.remove('hidden');
                 reiniciarJuego();
             });
@@ -1626,7 +1626,7 @@
                 Estado.modoJuego = '75';
                 DOM.pantalla1.style.display = 'none';
                 DOM.pantalla2.style.display = 'block';
-                DOM.pantalla2Titulo.textContent = 'CALIPSO BINGO 75';
+                DOM.pantalla2Titulo.textContent = 'BINGO 75';
                 DOM.bingoBtn.classList.remove('hidden');
                 reiniciarJuego();
             }, { passive: false });
