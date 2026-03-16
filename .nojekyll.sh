@@ -1,5 +1,2 @@
-# En tu terminal, en la raíz del repo:
+# En terminal, navega a tu repositorio y ejecuta:
 touch .nojekyll
-git add .nojekyll
-git commit -m "Agregar .nojekyll para GitHub Pages"
-git push

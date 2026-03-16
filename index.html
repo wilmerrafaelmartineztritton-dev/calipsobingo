@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    
+    <!-- META TAGS ANTI-CACHÉ -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
     <title>Calipso Bingo 75 - App Oficial</title>
+    
+    <!-- VERSIÓN DE LA APLICACIÓN -->
+    <meta name="version" content="2.0.1">
+    
+    <link rel="manifest" href="manifest.json?v=2.0.1">
+    <meta name="theme-color" content="#ffcc00">
+
     <style>
         /* RESET Y VARIABLES GLOBALES */
         * {
@@ -115,7 +128,6 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.03);
         }
 
-        /* LOGO PRINCIPAL - CAMBIA LA RUTA DE LA IMAGEN */
         .logo-pantalla1 {
             width: 100%;
             max-width: 320px;
@@ -134,7 +146,6 @@
             border-radius: 2px;
         }
 
-        /* Selector de modo de juego */
         .modo-juego {
             display: flex;
             gap: 12px;
@@ -171,7 +182,6 @@
             transform: scale(0.97);
         }
 
-        /* Texto promocional */
         .promo-text {
             font-size: 1.2em;
             color: var(--text-dark);
@@ -235,7 +245,7 @@
             transform: scale(0.98);
         }
 
-        /* TEXTO DE PIE DE PÁGINA CON CRÉDITOS ACTUALIZADOS */
+        /* TEXTO DE PIE DE PÁGINA CON CRÉDITOS */
         .footer-credits {
             margin-top: 25px;
             padding-top: 15px;
@@ -425,7 +435,6 @@
             animation: fadeIn 0.3s var(--transition-fast);
         }
 
-        /* Header con botón volver - CON IMAGEN PERSONALIZABLE */
         .pantalla2-header {
             display: flex;
             align-items: center;
@@ -434,10 +443,9 @@
             border-bottom: 2px solid var(--primary-green);
         }
         
-        /* BOTÓN VOLVER - CAMBIA LA RUTA DE LA IMAGEN */
         .btn-volver {
             background: var(--bingo-red);
-            background-image: url('flecha.png'); /* CAMBIA ESTA RUTA */
+            background-image: url('flecha.png?v=2.0.1');
             background-size: 90% 90%;
             background-position: center;
             background-repeat: no-repeat;
@@ -476,14 +484,12 @@
             letter-spacing: 0.5px;
         }
 
-        /* Layout móvil de 2 columnas */
         .game-layout {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 12px;
         }
 
-        /* Columna izquierda - Tabla BINGO */
         .left-panel {
             grid-column: 1;
             width: 100%;
@@ -544,7 +550,6 @@
         
         .table-cell:last-child { border-right: none; }
 
-        /* Estilo de número circular 3D */
         .numero-3d {
             display: inline-flex;
             align-items: center;
@@ -593,7 +598,6 @@
             color: #2d3748;
         }
 
-        /* Estilo para línea ganadora */
         .table-row.winner .table-cell .numero-3d {
             background: linear-gradient(145deg, var(--linea-win), #ff1493) !important;
             transform: scale(1.05);
@@ -606,7 +610,6 @@
             color: white;
         }
 
-        /* Columna derecha - Controles */
         .right-panel {
             grid-column: 2;
             display: flex;
@@ -622,7 +625,6 @@
             border: 2px solid var(--primary-green);
         }
         
-        /* Bola actual en 3D circular */
         .ball-number-large {
             display: inline-flex;
             align-items: center;
@@ -789,7 +791,6 @@
             min-height: 44px;
         }
 
-        /* LOGO FOOTER - CAMBIA LA RUTA DE LA IMAGEN */
         .logo-footer-p2 {
             width: 120px;
             height: 65px;
@@ -799,7 +800,6 @@
             filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
         }
 
-        /* Modales */
         .modal {
             background: white;
             border-radius: var(--border-radius-lg);
@@ -939,7 +939,6 @@
             gap: 6px;
         }
 
-        /* BOTONES VER NÚMEROS Y NUEVA PARTIDA - TAMAÑO REDUCIDO */
         .btn-result {
             padding: 4px 8px;
             border: none;
@@ -959,7 +958,6 @@
             transform: scale(0.96);
         }
 
-        /* Media Queries para móviles */
         @media (max-width: 380px) {
             .game-layout { gap: 8px; }
             
@@ -1032,34 +1030,80 @@
             }
         }
 
-        /* Soporte para pantallas más grandes */
         @media (min-width: 501px) {
             .app { 
                 max-width: 500px; 
             }
         }
 
-        /* Prevenir scroll cuando los modales están abiertos */
         body.modal-open {
             overflow: hidden;
         }
 
-        /* Mejoras de accesibilidad */
         button:focus-visible {
             outline: 2px solid var(--bingo-blue);
             outline-offset: 2px;
         }
     </style>
-    <link rel="manifest" href="manifest.json">
+    
+    <link rel="manifest" href="manifest.json?v=2.0.1">
     <meta name="theme-color" content="#ffcc00">
 
     <script>
+        // === SISTEMA ANTI-CACHÉ Y CONTROL DE VERSIÓN ===
+        (function() {
+            const APP_VERSION = '2.0.1';
+            console.log('App versión:', APP_VERSION);
+            
+            // Verificar versión guardada
+            try {
+                const storedVersion = localStorage.getItem('app_version');
+                
+                if (storedVersion && storedVersion !== APP_VERSION) {
+                    console.log('🔄 Nueva versión detectada, limpiando caché...');
+                    
+                    // Limpiar service workers
+                    if ('serviceWorker' in navigator) {
+                        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                            for(let registration of registrations) {
+                                registration.unregister();
+                                console.log('Service Worker desregistrado');
+                            }
+                        });
+                    }
+                    
+                    // Limpiar cachés del navegador
+                    if ('caches' in window) {
+                        caches.keys().then(function(cacheNames) {
+                            cacheNames.forEach(function(cacheName) {
+                                caches.delete(cacheName);
+                                console.log('Caché eliminado:', cacheName);
+                            });
+                        });
+                    }
+                    
+                    // Guardar nueva versión
+                    localStorage.setItem('app_version', APP_VERSION);
+                    
+                    // Recargar con fuerza
+                    window.location.reload(true);
+                } else if (!storedVersion) {
+                    localStorage.setItem('app_version', APP_VERSION);
+                }
+            } catch (e) {
+                console.log('Error con localStorage:', e);
+            }
+        })();
+
+        // Service worker con timestamp para evitar caché
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-             navigator.serviceWorker.register('/sw.js');
-        });
-    }
-</script>
+                navigator.serviceWorker.register('/sw.js?v=' + Date.now()).catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="app">
@@ -1067,23 +1111,19 @@
         <div class="pantalla1" id="pantalla1">
             <div class="bienvenido">BIENVENIDO A</div>
             
-            <!-- LOGO PRINCIPAL - CAMBIA LA RUTA DE LA IMAGEN -->
-            <img src="Logo-oficial-lineal.jpg" alt="Logo Calipso Bingo" class="logo-pantalla1">
+            <img src="Logo-oficial-lineal.jpg?v=2.0.1" alt="Logo Calipso Bingo" class="logo-pantalla1">
             
-            <!-- Selector de modo de juego -->
             <div class="modo-juego">
                 <button class="btn-modo" id="btnJugar75">🎯 BINGO 75</button>
                 <button class="btn-modo" id="btnJugarLinea">📏 BINGO LÍNEA</button>
             </div>
             
-            <!-- Botón para abrir configuración -->
             <button class="btn-config" id="btnAbrirConfig">
                 <span>⚙</span> CONFIGURACIÓN
             </button>
             
             <div class="divider"></div>
             
-            <!-- Texto promocional -->
             <div class="promo-text">
                 <span>Entra, Juega y Gana en:</span>
             </div>
@@ -1092,7 +1132,7 @@
                 <a href="https://www.calipsobingo.com" target="_blank" rel="noopener noreferrer">www.calipsobingo.com</a>
             </div>
             
-            <!-- NUEVOS CRÉDITOS DE PIE DE PÁGINA -->
+            <!-- NUEVOS CRÉDITOS -->
             <div class="footer-credits">
                 <p class="copyright">© 2026 Calipso Bingo - Versión 2.0</p>
                 <p class="developer">Desarrollado por TRITTON Business Architecture</p>
@@ -1157,15 +1197,12 @@
 
         <!-- PANTALLA 2: JUEGO -->
         <div class="pantalla2" id="pantalla2">
-            <!-- Header con botón volver -->
             <div class="pantalla2-header">
-                <!-- BOTÓN VOLVER - USA LA MISMA IMAGEN CONFIGURADA EN CSS -->
                 <button class="btn-volver" id="btnVolver"></button>
                 <div class="pantalla2-titulo" id="pantalla2Titulo">BINGO 75</div>
             </div>
 
             <div class="game-layout">
-                <!-- COLUMNA IZQUIERDA: TABLA -->
                 <div class="left-panel">
                     <div class="bingo-letters">
                         <div class="letter-col b">B</div>
@@ -1177,7 +1214,6 @@
                     <div class="numbers-table" id="numbersTable"></div>
                 </div>
 
-                <!-- COLUMNA DERECHA: CONTROLES -->
                 <div class="right-panel">
                     <div class="ball-display">
                         <div class="ball-number-large" id="bolaActual">0</div>
@@ -1205,10 +1241,8 @@
                         <a href="https://www.calipsobingo.com" target="_blank" rel="noopener noreferrer">www.calipsobingo.com</a>
                     </div>
 
-                    <!-- LOGO FOOTER - CAMBIA LA RUTA DE LA IMAGEN -->
-                    <img src="Logo-oficial-lineal.jpg" alt="Logo Calipso Bingo" class="logo-footer-p2">
+                    <img src="Logo-oficial-lineal.jpg?v=2.0.1" alt="Logo Calipso Bingo" class="logo-footer-p2">
 
-                    <!-- MODAL DE CONFIRMACIÓN STOP -->
                     <div class="modal" id="stopConfirmModal">
                         <p>¿Finalizar partida?</p>
                         <div class="modal-buttons">
@@ -1217,7 +1251,6 @@
                         </div>
                     </div>
 
-                    <!-- MODAL DE BINGO -->
                     <div class="modal" id="bingoCheck">
                         <p id="bingoMensaje">¿Bingo correcto?</p>
                         <div class="modal-buttons">
@@ -1226,7 +1259,6 @@
                         </div>
                     </div>
 
-                    <!-- MODAL DE LÍNEA COMPLETA -->
                     <div class="modal" id="lineaGanadoraModal">
                         <p id="lineaGanadoraMensaje"></p>
                         <div class="modal-buttons">
@@ -1251,7 +1283,6 @@
             
             // ==================== CONFIGURACIÓN Y VARIABLES GLOBALES ====================
             
-            // Estado de la aplicación
             const Estado = {
                 juegoActivo: false,
                 juegoIniciado: false,
@@ -1269,7 +1300,6 @@
                 lineaEnProceso: false
             };
 
-            // Configuración del usuario
             const Config = {
                 sonido: true,
                 voz: 'femenina',
@@ -1278,7 +1308,6 @@
                 repetirBolas: true
             };
 
-            // Detectar navegador
             const Navegador = {
                 isOpera: navigator.userAgent.includes('OPR') || navigator.userAgent.includes('Opera'),
                 isChrome: navigator.userAgent.includes('Chrome') && !navigator.userAgent.includes('OPR'),
@@ -1644,7 +1673,6 @@
 
             // ==================== MANEJADORES DE EVENTOS ====================
             
-            // Botones de modo de juego
             DOM.btnJugar75.addEventListener('click', (e) => {
                 e.preventDefault();
                 Estado.usuarioInteractuo = true;
@@ -1689,7 +1717,6 @@
                 reiniciarJuego();
             }, { passive: false });
 
-            // Botón volver
             DOM.btnVolver.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (Estado.intervaloJuego) {
@@ -1710,7 +1737,6 @@
                 DOM.pantalla1.style.display = 'block';
             }, { passive: false });
 
-            // Configuración
             DOM.btnAbrirConfig.addEventListener('click', (e) => {
                 e.preventDefault();
                 Estado.usuarioInteractuo = true;
@@ -1736,7 +1762,6 @@
             DOM.btnCerrarConfig.addEventListener('click', cerrarConfig);
             DOM.modalOverlay.addEventListener('click', cerrarConfig);
 
-            // Inputs de configuración
             DOM.sonido.addEventListener('change', (e) => Config.sonido = e.target.checked);
             DOM.voz.addEventListener('change', (e) => Config.voz = e.target.value);
             DOM.autoExtraccion.addEventListener('change', (e) => Config.autoExtraccion = e.target.checked);
@@ -1751,7 +1776,6 @@
             
             DOM.repetirBolas.addEventListener('change', (e) => Config.repetirBolas = e.target.checked);
 
-            // Botón PLAY/PAUSA
             function togglePlayPause(e) {
                 if (e) {
                     e.preventDefault();
@@ -1792,7 +1816,6 @@
             DOM.playPauseBtn.addEventListener('click', togglePlayPause);
             DOM.playPauseBtn.addEventListener('touchstart', togglePlayPause, { passive: false });
 
-            // Botón STOP
             function mostrarConfirmacionStop(e) {
                 if (e) {
                     e.preventDefault();
@@ -1868,7 +1891,6 @@
             DOM.stopConfirmNo.addEventListener('click', cancelarStop);
             DOM.stopConfirmNo.addEventListener('touchstart', (e) => { e.preventDefault(); cancelarStop(e); }, { passive: false });
 
-            // Botón BINGO
             function verificarBingo(e) {
                 if (e) {
                     e.preventDefault();
@@ -1921,7 +1943,6 @@
             DOM.bingoNo.addEventListener('click', (e) => bingoCorrecto(false, e));
             DOM.bingoNo.addEventListener('touchstart', (e) => { e.preventDefault(); bingoCorrecto(false, e); }, { passive: false });
 
-            // Modal de línea ganadora
             DOM.lineaGanadoraOk.addEventListener('click', (e) => {
                 e.preventDefault();
                 DOM.lineaGanadoraModal.style.display = 'none';
@@ -1932,7 +1953,6 @@
                 DOM.lineaGanadoraModal.style.display = 'none';
             }, { passive: false });
 
-            // Botones de resultados
             function mostrarNumeros(e) {
                 if (e) {
                     e.preventDefault();
@@ -1974,14 +1994,12 @@
                 reiniciarJuego();
             }, { passive: false });
 
-            // Enlace web
             if (DOM.webLink) {
                 DOM.webLink.addEventListener('click', (e) => {
                     e.stopPropagation();
                 });
             }
 
-            // Detectar interacción del usuario
             document.addEventListener('click', () => {
                 Estado.usuarioInteractuo = true;
             });
@@ -1990,12 +2008,10 @@
                 Estado.usuarioInteractuo = true;
             }, { passive: true });
 
-            // Inicialización
             document.addEventListener('DOMContentLoaded', function() {
                 precargarVoces();
                 crearTablaNumeros();
                 
-                // Cerrar modales con tecla Escape
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape') {
                         if (DOM.configModal.classList.contains('show')) {
@@ -2013,7 +2029,6 @@
                 });
             });
 
-            // Limpiar intervalos al cerrar/recargar
             window.addEventListener('beforeunload', () => {
                 if (Estado.intervaloJuego) {
                     clearInterval(Estado.intervaloJuego);
