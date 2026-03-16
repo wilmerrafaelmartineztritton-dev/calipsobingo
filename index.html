@@ -235,6 +235,37 @@
             transform: scale(0.98);
         }
 
+        /* TEXTO DE PIE DE PÁGINA CON CRÉDITOS ACTUALIZADOS */
+        .footer-credits {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(46, 139, 86, 0.2);
+            font-size: 0.75em;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+        
+        .footer-credits p {
+            margin: 3px 0;
+        }
+        
+        .footer-credits .copyright {
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+        
+        .footer-credits .developer {
+            font-weight: 500;
+            color: #718096;
+        }
+        
+        .footer-credits .certified {
+            font-size: 0.9em;
+            color: var(--bingo-blue);
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
         /* Modal de configuración */
         .config-modal {
             background: white;
@@ -1061,7 +1092,12 @@
                 <a href="https://www.calipsobingo.com" target="_blank" rel="noopener noreferrer">www.calipsobingo.com</a>
             </div>
             
-            <div style="margin-top: 20px; font-size: 0.9em; color: #718096;">© 2026 Calipso Bingo - Versión 2.0</div>
+            <!-- NUEVOS CRÉDITOS DE PIE DE PÁGINA -->
+            <div class="footer-credits">
+                <p class="copyright">© 2026 Calipso Bingo - Versión 2.0</p>
+                <p class="developer">Desarrollado por TRITTON Business Architecture</p>
+                <p class="certified">Legal Compliance & International Trade Certified</p>
+            </div>
         </div>
 
         <!-- MODAL DE CONFIGURACIÓN -->
