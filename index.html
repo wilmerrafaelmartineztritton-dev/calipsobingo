@@ -9,12 +9,12 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <title>Calipso Bingo 75 - App Oficial</title>
+    <title>Bingo Élite 75 - App Oficial</title>
     
     <!-- VERSIÓN DE LA APLICACIÓN -->
-    <meta name="version" content="2.0.1">
+    <meta name="version" content="2.0.2">
     
-    <link rel="manifest" href="manifest.json?v=2.0.1">
+    <link rel="manifest" href="manifest.json?v=2.0.2">
     <meta name="theme-color" content="#ffcc00">
 
     <style>
@@ -445,7 +445,7 @@
         
         .btn-volver {
             background: var(--bingo-red);
-            background-image: url('flecha.png?v=2.0.1');
+            background-image: url('flecha.png?v=2.0.2');
             background-size: 90% 90%;
             background-position: center;
             background-repeat: no-repeat;
@@ -734,6 +734,44 @@
         .btn-stop:active {
             transform: translateY(2px);
             box-shadow: 0 1px 0 rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* BOTÓN DE EXTRACCIÓN MANUAL - OCULTO POR DEFECTO */
+        .btn-extraer {
+            background: var(--bingo-yellow);
+            color: var(--text-dark);
+            border: none;
+            padding: 14px 8px;
+            border-radius: var(--border-radius-lg);
+            font-size: 1.2em;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 0 #b7791f, 0 5px 10px rgba(236, 201, 75, 0.3);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.05s ease;
+            letter-spacing: 1px;
+            width: 100%;
+            margin-top: 5px;
+        }
+        
+        .btn-extraer:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #b7791f, 0 2px 5px rgba(236, 201, 75, 0.2);
+        }
+        
+        .btn-extraer:disabled {
+            opacity: 0.5;
+            transform: none;
+            box-shadow: 0 2px 0 #b7791f;
+            pointer-events: none;
+        }
+        
+        .btn-extraer.hidden {
+            display: none;
         }
 
         .btn-bingo {
@@ -1046,13 +1084,13 @@
         }
     </style>
     
-    <link rel="manifest" href="manifest.json?v=2.0.1">
+    <link rel="manifest" href="manifest.json?v=2.0.2">
     <meta name="theme-color" content="#ffcc00">
 
     <script>
         // === SISTEMA ANTI-CACHÉ Y CONTROL DE VERSIÓN ===
         (function() {
-            const APP_VERSION = '2.0.1';
+            const APP_VERSION = '2.0.2';
             console.log('App versión:', APP_VERSION);
             
             // Verificar versión guardada
@@ -1111,7 +1149,7 @@
         <div class="pantalla1" id="pantalla1">
             <div class="bienvenido">BIENVENIDO A</div>
             
-            <img src="Logo-oficial-lineal.jpg?v=2.0.1" alt="Logo Calipso Bingo" class="logo-pantalla1">
+            <img src="Logo-oficial-lineal.jpg?v=2.0.2" alt="Logo Calipso Bingo" class="logo-pantalla1">
             
             <div class="modo-juego">
                 <button class="btn-modo" id="btnJugar75">🎯 BINGO 75</button>
@@ -1234,6 +1272,9 @@
                         <button class="btn-control-small btn-stop" id="stopBtn">⏹ STOP</button>
                     </div>
 
+                    <!-- BOTÓN DE EXTRACCIÓN MANUAL - SE MUESTRA SOLO SI EXTRACCIÓN AUTO ESTÁ DESACTIVADA -->
+                    <button class="btn-extraer" id="extraerBtn">🎲 EXTRAER</button>
+
                     <button class="btn-bingo" id="bingoBtn">BINGO</button>
 
                     <div class="entra-text">Entra, juega y gana en:</div>
@@ -1241,7 +1282,7 @@
                         <a href="https://www.calipsobingo.com" target="_blank" rel="noopener noreferrer">www.calipsobingo.com</a>
                     </div>
 
-                    <img src="Logo-oficial-lineal.jpg?v=2.0.1" alt="Logo Calipso Bingo" class="logo-footer-p2">
+                    <img src="Logo-oficial-lineal.jpg?v=2.0.2" alt="Logo Calipso Bingo" class="logo-footer-p2">
 
                     <div class="modal" id="stopConfirmModal">
                         <p>¿Finalizar partida?</p>
@@ -1333,6 +1374,7 @@
                 ballInfo: document.getElementById('ballInfo'),
                 playPauseBtn: document.getElementById('playPauseBtn'),
                 stopBtn: document.getElementById('stopBtn'),
+                extraerBtn: document.getElementById('extraerBtn'),
                 bingoBtn: document.getElementById('bingoBtn'),
                 startIndicator: document.getElementById('startIndicator'),
                 recentBalls: document.getElementById('recentBalls'),
@@ -1496,6 +1538,9 @@
                 DOM.startIndicator.innerHTML = '⚪ Juego listo';
                 DOM.startIndicator.style.color = '#2E8B57';
                 
+                // Habilitar/deshabilitar botón extraer según configuración
+                DOM.extraerBtn.disabled = true;
+                
                 DOM.stopConfirmModal.style.display = 'none';
                 DOM.bingoCheck.style.display = 'none';
                 DOM.lineaGanadoraModal.style.display = 'none';
@@ -1570,16 +1615,33 @@
             function extraerBola() {
                 if (!Estado.juegoActivo || Estado.lineaEnProceso) return;
                 
-                let nuevaBola;
-                if (Config.repetirBolas) {
-                    if (Estado.bolasSorteadas.length >= Estado.totalBolas) {
-                        return;
+                // Verificar si ya se extrajeron todas las bolas
+                if (Estado.bolasSorteadas.length >= Estado.totalBolas) {
+                    Estado.pausado = true;
+                    Estado.juegoActivo = false;
+                    DOM.playPauseBtn.textContent = '▶ PLAY';
+                    DOM.playPauseBtn.classList.remove('pausa');
+                    DOM.startIndicator.innerHTML = '⚪ Todas las bolas extraídas';
+                    hablar("Se han extraído todas las bolas");
+                    DOM.extraerBtn.disabled = true;
+                    if (Estado.intervaloJuego) {
+                        clearInterval(Estado.intervaloJuego);
+                        Estado.intervaloJuego = null;
                     }
-                    
+                    return;
+                }
+                
+                let nuevaBola;
+                
+                // CORRECCIÓN: Si repetirBolas está ACTIVADO (true), NO repetir bolas (sacar solo no sorteadas)
+                // Si repetirBolas está DESACTIVADO (false), SÍ puede repetir bolas
+                if (Config.repetirBolas) {
+                    // CON REPETIR ACTIVADO: NO repetir bolas (sacar solo números nuevos)
                     do { 
                         nuevaBola = Math.floor(Math.random() * Estado.totalBolas) + 1; 
                     } while (Estado.bolasSorteadas.includes(nuevaBola));
                 } else {
+                    // CON REPETIR DESACTIVADO: SÍ puede repetir bolas (cualquier número)
                     nuevaBola = Math.floor(Math.random() * Estado.totalBolas) + 1;
                 }
                 
@@ -1598,6 +1660,11 @@
                 if (Estado.modoJuego === 'linea') {
                     verificarTodasLasLineas(nuevaBola);
                 }
+                
+                // Deshabilitar botón extraer si se acabaron las bolas
+                if (Estado.bolasSorteadas.length >= Estado.totalBolas) {
+                    DOM.extraerBtn.disabled = true;
+                }
             }
 
             function iniciarJuego() {
@@ -1608,6 +1675,9 @@
                 DOM.playPauseBtn.classList.add('pausa');
                 DOM.startIndicator.innerHTML = '🔴 Juego en curso';
                 DOM.startIndicator.style.color = '#e53e3e';
+                
+                // Habilitar botón extraer solo si extracción auto está desactivada
+                DOM.extraerBtn.disabled = false;
                 
                 if (Config.autoExtraccion) {
                     iniciarExtraccionAutomatica();
@@ -1655,6 +1725,7 @@
                                 Estado.juegoActivo = false;
                                 DOM.playPauseBtn.textContent = '▶ PLAY';
                                 DOM.playPauseBtn.classList.remove('pausa');
+                                DOM.extraerBtn.disabled = true;
                                 
                                 const mensaje = `¡LÍNEA ${fila + 1} COMPLETA! Un jugador ha ganado.`;
                                 DOM.lineaGanadoraMensaje.textContent = mensaje;
@@ -1671,6 +1742,20 @@
                 }
             }
 
+            // ==================== FUNCIÓN PARA ACTUALIZAR VISIBILIDAD DEL BOTÓN EXTRAER ====================
+            
+            function actualizarVisibilidadExtraer() {
+                if (DOM.extraerBtn) {
+                    if (Config.autoExtraccion) {
+                        // Si extracción auto está ACTIVADA, ocultar botón
+                        DOM.extraerBtn.classList.add('hidden');
+                    } else {
+                        // Si extracción auto está DESACTIVADA, mostrar botón
+                        DOM.extraerBtn.classList.remove('hidden');
+                    }
+                }
+            }
+
             // ==================== MANEJADORES DE EVENTOS ====================
             
             DOM.btnJugar75.addEventListener('click', (e) => {
@@ -1681,6 +1766,7 @@
                 DOM.pantalla2.style.display = 'block';
                 DOM.pantalla2Titulo.textContent = 'BINGO 75';
                 DOM.bingoBtn.classList.remove('hidden');
+                actualizarVisibilidadExtraer(); // Actualizar visibilidad del botón extraer
                 reiniciarJuego();
             });
             
@@ -1692,6 +1778,7 @@
                 DOM.pantalla2.style.display = 'block';
                 DOM.pantalla2Titulo.textContent = 'BINGO 75';
                 DOM.bingoBtn.classList.remove('hidden');
+                actualizarVisibilidadExtraer();
                 reiniciarJuego();
             }, { passive: false });
 
@@ -1703,6 +1790,7 @@
                 DOM.pantalla2.style.display = 'block';
                 DOM.pantalla2Titulo.textContent = 'BINGO EN LÍNEA';
                 DOM.bingoBtn.classList.add('hidden');
+                actualizarVisibilidadExtraer();
                 reiniciarJuego();
             });
             
@@ -1714,6 +1802,7 @@
                 DOM.pantalla2.style.display = 'block';
                 DOM.pantalla2Titulo.textContent = 'BINGO EN LÍNEA';
                 DOM.bingoBtn.classList.add('hidden');
+                actualizarVisibilidadExtraer();
                 reiniciarJuego();
             }, { passive: false });
 
@@ -1764,7 +1853,21 @@
 
             DOM.sonido.addEventListener('change', (e) => Config.sonido = e.target.checked);
             DOM.voz.addEventListener('change', (e) => Config.voz = e.target.value);
-            DOM.autoExtraccion.addEventListener('change', (e) => Config.autoExtraccion = e.target.checked);
+            
+            DOM.autoExtraccion.addEventListener('change', (e) => {
+                Config.autoExtraccion = e.target.checked;
+                actualizarVisibilidadExtraer(); // Actualizar visibilidad del botón extraer
+                
+                // Si el juego está activo y se activa extracción automática, iniciar intervalo
+                if (Estado.juegoActivo && !Estado.pausado && Config.autoExtraccion) {
+                    iniciarExtraccionAutomatica();
+                }
+                // Si se desactiva extracción automática, detener intervalo
+                if (!Config.autoExtraccion && Estado.intervaloJuego) {
+                    clearInterval(Estado.intervaloJuego);
+                    Estado.intervaloJuego = null;
+                }
+            });
             
             DOM.tiempoBolas.addEventListener('input', (e) => {
                 Config.tiempoBolas = parseInt(e.target.value);
@@ -1791,6 +1894,10 @@
                     if (Estado.pausado) {
                         DOM.playPauseBtn.classList.remove('pausa');
                         DOM.startIndicator.innerHTML = '⏸ Juego pausado';
+                        // Mantener extraer habilitado en pausa (solo si extracción auto está desactivada)
+                        if (!Config.autoExtraccion) {
+                            DOM.extraerBtn.disabled = false;
+                        }
                         if (!Estado.ultimoEstadoPausa) {
                             hablar("Juego pausado");
                             Estado.ultimoEstadoPausa = true;
@@ -1802,6 +1909,10 @@
                     } else {
                         DOM.playPauseBtn.classList.add('pausa');
                         DOM.startIndicator.innerHTML = '🔴 Juego en curso';
+                        // Habilitar extraer al reanudar (solo si extracción auto está desactivada)
+                        if (!Config.autoExtraccion) {
+                            DOM.extraerBtn.disabled = false;
+                        }
                         if (Estado.ultimoEstadoPausa) {
                             hablar("Continúa el juego");
                             Estado.ultimoEstadoPausa = false;
@@ -1816,6 +1927,22 @@
             DOM.playPauseBtn.addEventListener('click', togglePlayPause);
             DOM.playPauseBtn.addEventListener('touchstart', togglePlayPause, { passive: false });
 
+            // Evento para extracción manual
+            function extraerManual(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                // Solo permitir extracción manual si extracción auto está desactivada
+                if (!Config.autoExtraccion && Estado.juegoActivo && !Estado.lineaEnProceso) {
+                    extraerBola();
+                }
+            }
+
+            DOM.extraerBtn.addEventListener('click', extraerManual);
+            DOM.extraerBtn.addEventListener('touchstart', extraerManual, { passive: false });
+
             function mostrarConfirmacionStop(e) {
                 if (e) {
                     e.preventDefault();
@@ -1826,6 +1953,10 @@
                     Estado.pausado = true;
                     DOM.playPauseBtn.textContent = '▶ PLAY';
                     DOM.playPauseBtn.classList.remove('pausa');
+                    // Mantener extraer habilitado (solo si extracción auto está desactivada)
+                    if (!Config.autoExtraccion) {
+                        DOM.extraerBtn.disabled = false;
+                    }
                     if (Estado.intervaloJuego) {
                         clearInterval(Estado.intervaloJuego);
                         Estado.intervaloJuego = null;
@@ -1853,6 +1984,7 @@
                 DOM.playPauseBtn.classList.remove('pausa');
                 DOM.startIndicator.innerHTML = '⚪ Juego listo';
                 DOM.startIndicator.style.color = '#2E8B57';
+                DOM.extraerBtn.disabled = true;
                 
                 if (Estado.intervaloJuego) {
                     clearInterval(Estado.intervaloJuego);
@@ -1878,6 +2010,10 @@
                     DOM.playPauseBtn.textContent = '⏸ PAUSA';
                     DOM.playPauseBtn.classList.add('pausa');
                     DOM.startIndicator.innerHTML = '🔴 Juego en curso';
+                    // Habilitar extraer al cancelar stop (solo si extracción auto está desactivada)
+                    if (!Config.autoExtraccion) {
+                        DOM.extraerBtn.disabled = false;
+                    }
                     
                     if (Config.autoExtraccion && !Estado.intervaloJuego) {
                         iniciarExtraccionAutomatica();
@@ -1907,6 +2043,7 @@
                     Estado.juegoActivo = false;
                     DOM.playPauseBtn.textContent = '▶ PLAY';
                     DOM.playPauseBtn.classList.remove('pausa');
+                    DOM.extraerBtn.disabled = true;
                     
                     DOM.bingoMensaje.textContent = '¿Bingo correcto?';
                     DOM.bingoCheck.style.display = 'block';
@@ -1926,6 +2063,7 @@
                 
                 if (correcto) {
                     DOM.resultActions.style.display = 'block';
+                    DOM.extraerBtn.disabled = true;
                     hablar("¡Bingo! Felicidades");
                 } else {
                     Estado.juegoActivo = true;
@@ -1933,6 +2071,10 @@
                     DOM.playPauseBtn.textContent = '⏸ PAUSA';
                     DOM.playPauseBtn.classList.add('pausa');
                     DOM.startIndicator.innerHTML = '🔴 Juego en curso';
+                    // Rehabilitar extraer si bingo no es correcto (solo si extracción auto está desactivada)
+                    if (!Config.autoExtraccion) {
+                        DOM.extraerBtn.disabled = false;
+                    }
                     if (Config.autoExtraccion) iniciarExtraccionAutomatica();
                 }
             }
@@ -1987,11 +2129,13 @@
                     e.stopPropagation();
                 }
                 reiniciarJuego();
+                DOM.resultActions.style.display = 'none';
             });
             
             DOM.nuevaPartidaBtn.addEventListener('touchstart', (e) => {
                 e.preventDefault();
                 reiniciarJuego();
+                DOM.resultActions.style.display = 'none';
             }, { passive: false });
 
             if (DOM.webLink) {
@@ -2011,6 +2155,8 @@
             document.addEventListener('DOMContentLoaded', function() {
                 precargarVoces();
                 crearTablaNumeros();
+                actualizarVisibilidadExtraer(); // Actualizar visibilidad inicial del botón extraer
+                DOM.extraerBtn.disabled = true; // Inicialmente deshabilitado
                 
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape') {
