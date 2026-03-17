@@ -9,7 +9,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <title>Calipso Bingo - Edición Victoriana</title>
+    <title>Calipso Bingo - Versión 2.0</title>
     
     <!-- VERSIÓN DE LA APLICACIÓN -->
     <meta name="version" content="3.2.0">
@@ -70,13 +70,13 @@
         body {
             background-color: #0a1f1a;
             color: var(--text-dark);
-            line-height: 1.5;
-            font-size: 14px;
+            line-height: 1.4;
+            font-size: 13px;
             min-height: 100vh;
             font-family: 'Playfair Display', serif;
             display: flex;
             flex-direction: column;
-            padding: 8px;
+            padding: 5px;
             margin: 0;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -93,7 +93,7 @@
             position: fixed;
             bottom: 5px;
             left: 5px;
-            font-size: 18px;
+            font-size: 16px;
             color: var(--oro-antiguo);
             opacity: 0.2;
             pointer-events: none;
@@ -105,7 +105,7 @@
             position: fixed;
             top: 10px;
             right: 10px;
-            font-size: 22px;
+            font-size: 20px;
             color: var(--oro-antiguo);
             opacity: 0.15;
             pointer-events: none;
@@ -120,7 +120,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            padding: 5px;
+            padding: 3px;
             position: relative;
             z-index: 10;
         }
@@ -160,19 +160,19 @@
             background-position: center;
             background-repeat: no-repeat;
             
-            border-radius: 30px;
-            padding: 15px 12px;
+            border-radius: 25px;
+            padding: 8px 8px 4px 8px;
             box-shadow: 
-                0 0 0 5px var(--oro-antiguo),
-                0 0 0 8px rgba(0,0,0,0.5),
-                inset 0 0 20px rgba(212, 175, 55, 0.3),
+                0 0 0 4px var(--oro-antiguo),
+                0 0 0 6px rgba(0,0,0,0.5),
+                inset 0 0 15px rgba(212, 175, 55, 0.3),
                 var(--shadow-3d);
             text-align: center;
             border: 2px solid var(--oro-oscuro);
             min-height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             flex: 1;
             animation: fadeIn 0.5s ease-out;
             position: relative;
@@ -186,7 +186,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.4);
-            border-radius: 30px;
+            border-radius: 25px;
             z-index: 1;
             pointer-events: none;
         }
@@ -194,9 +194,9 @@
         .pantalla1::after {
             content: "⚜️";
             position: absolute;
-            bottom: -5px;
-            right: -5px;
-            font-size: 28px;
+            bottom: -3px;
+            right: -3px;
+            font-size: 22px;
             color: var(--oro-antiguo);
             filter: drop-shadow(0 0 5px gold);
             transform: rotate(180deg);
@@ -210,12 +210,12 @@
 
         .bienvenido {
             font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 900;
             color: var(--oro-antiguo);
-            margin-bottom: 12px;
+            margin-bottom: 4px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-shadow: 
                 2px 2px 0 #000,
                 4px 4px 0 rgba(0,0,0,0.3),
@@ -225,66 +225,98 @@
 
         .logo-pantalla1 {
             width: 100%;
-            max-width: 200px;
+            max-width: 140px;
             height: auto;
-            margin: 0 auto 12px;
+            margin: 0 auto 4px;
             display: block;
-            border-radius: 20px;
+            border-radius: 15px;
             box-shadow: 
                 0 0 0 3px var(--oro-antiguo),
-                0 8px 20px rgba(0,0,0,0.5);
+                0 5px 15px rgba(0,0,0,0.5);
             border: 2px solid var(--oro-oscuro);
         }
 
-        .divider {
-            width: 50%;
-            height: 2px;
-            background: linear-gradient(to right, transparent, var(--oro-antiguo), var(--oro-oscuro), transparent);
-            margin: 12px auto;
-            border-radius: 2px;
-            box-shadow: 0 0 8px gold;
+        /* Indicador de modos de juego */
+        .modos-indicador {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.8rem;
+            color: var(--marfil);
+            margin: 2px 0 4px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+        
+        .modos-indicador span {
+            color: var(--oro-antiguo);
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+            font-style: normal;
         }
 
         .modo-juego {
             display: flex;
-            gap: 8px;
-            margin: 12px 0;
+            gap: 6px;
+            margin: 4px 0;
             justify-content: center;
         }
         
         .btn-modo {
             flex: 1;
-            padding: 10px 3px;
+            padding: 8px 2px;
             border: none;
             border-radius: 30px;
             background: linear-gradient(145deg, var(--oro-antiguo), var(--oro-oscuro));
             color: #0a1f1a;
             font-family: 'Cinzel', serif;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 900;
             cursor: pointer;
             transition: all var(--transition-fast);
             touch-action: manipulation;
             box-shadow: 
                 0 3px 0 #6b4f1f,
-                0 5px 10px rgba(0,0,0,0.3),
+                0 4px 8px rgba(0,0,0,0.3),
                 inset 0 1px 3px rgba(255,255,255,0.5);
             border: 1px solid #ffd700;
             text-transform: uppercase;
             white-space: nowrap;
             letter-spacing: 0.5px;
             min-width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+        }
+        
+        .btn-modo:first-child::before {
+            content: "🔴";
+            font-size: 0.9rem;
+        }
+        
+        .btn-modo:last-child::before {
+            content: "📏";
+            font-size: 0.9rem;
         }
         
         .btn-modo:active {
             transform: translateY(2px);
-            box-shadow: 0 1px 0 #6b4f1f, 0 3px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 1px 0 #6b4f1f, 0 3px 5px rgba(0,0,0,0.3);
+        }
+
+        .divider {
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--oro-antiguo), var(--oro-oscuro), transparent);
+            margin: 5px auto;
+            border-radius: 2px;
+            box-shadow: 0 0 6px gold;
         }
 
         .promo-text {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--marfil);
-            margin: 6px 0 4px;
+            margin: 3px 0 2px;
             font-weight: 600;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
             font-family: 'Playfair Display', serif;
@@ -292,33 +324,33 @@
         
         .promo-text span {
             color: var(--oro-antiguo);
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 900;
             animation: glitter 3s infinite;
         }
 
         .footer-link {
-            margin: 6px 0 10px;
+            margin: 2px 0 3px;
         }
         
         .footer-link a {
             font-family: 'Cinzel', serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--oro-antiguo);
             text-decoration: none;
             font-weight: 700;
-            padding: 6px 12px;
+            padding: 4px 8px;
             border-radius: 30px;
             background: rgba(10, 31, 26, 0.8);
             display: inline-flex;
             align-items: center;
             justify-content: center;
             border: 2px solid var(--oro-antiguo);
-            min-height: 38px;
+            min-height: 32px;
             transition: all var(--transition-fast);
             box-shadow: 
                 0 0 0 2px rgba(212, 175, 55, 0.3),
-                0 5px 10px rgba(0,0,0,0.5);
+                0 4px 8px rgba(0,0,0,0.5);
             backdrop-filter: blur(5px);
             letter-spacing: 0.5px;
         }
@@ -327,46 +359,47 @@
             transform: scale(0.98);
         }
 
-            .btn-config {
+        .btn-config {
             background: linear-gradient(145deg, #1e3a8a, #0a1f4a);
             color: var(--oro-antiguo);
             border: none;
-            padding: 8px 12px;
+            padding: 5px 8px;
             border-radius: 30px;
             font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 700;
             cursor: pointer;
-            margin: 6px auto;  /* auto en los lados para centrar */
-            width: 60%;        /* ← CAMBIA ESTE VALOR */
-            max-width: 300px;  /* ← O AGREGA UN MÁXIMO */
-            box-shadow: 0 3px 0 #0a0f2a, 0 5px 10px rgba(0,0,0,0.3);
+            margin: 3px auto;
+            width: 100%;
+            max-width: 160px;
+            box-shadow: 0 2px 0 #0a0f2a, 0 4px 8px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 4px;
             border: 2px solid var(--oro-antiguo);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            min-height: 34px;
         }
         
         .btn-config:active {
             transform: translateY(2px);
-            box-shadow: 0 1px 0 #0a0f2a, 0 3px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 1px 0 #0a0f2a, 0 3px 5px rgba(0,0,0,0.3);
         }
 
         .footer-credits {
-            margin-top: 12px;
-            padding-top: 8px;
+            margin-top: 2px;
+            padding-top: 2px;
             border-top: 2px solid var(--oro-antiguo);
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             color: var(--marfil);
-            line-height: 1.3;
+            line-height: 1.1;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         
         .footer-credits p {
-            margin: 2px 0;
+            margin: 1px 0;
         }
         
         .footer-credits .copyright {
@@ -382,7 +415,7 @@
         }
         
         .footer-credits .certified {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: var(--zafiro);
             font-weight: 600;
             letter-spacing: 0.5px;
@@ -391,8 +424,8 @@
         /* ==================== MODAL DE CONFIGURACIÓN ==================== */
         .config-modal {
             background: linear-gradient(145deg, #0a3d2e, #1a5e3a);
-            border-radius: 30px;
-            padding: 18px 15px;
+            border-radius: 25px;
+            padding: 15px 12px;
             box-shadow: 
                 0 0 0 4px var(--oro-antiguo),
                 0 15px 30px rgba(0,0,0,0.6),
@@ -404,7 +437,7 @@
             left: 50%;
             transform: translate(-50%, -50%) scale(1);
             width: 90%;
-            max-width: 360px;
+            max-width: 340px;
             z-index: 2000;
             display: none;
             backdrop-filter: blur(10px);
@@ -418,10 +451,10 @@
 
         .config-title {
             font-family: 'Cinzel', serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 800;
             color: var(--oro-antiguo);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             text-shadow: 0 2px 5px rgba(0,0,0,0.5);
             letter-spacing: 1px;
         }
@@ -430,10 +463,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
-            padding: 8px 12px;
+            margin-bottom: 8px;
+            padding: 6px 10px;
             background: rgba(255,255,255,0.1);
-            border-radius: 30px;
+            border-radius: 25px;
             border: 2px solid var(--oro-antiguo);
             backdrop-filter: blur(5px);
         }
@@ -442,7 +475,7 @@
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             color: var(--marfil);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-shadow: 1px 1px 2px black;
         }
 
@@ -451,39 +484,39 @@
             font-weight: 700;
             min-width: 35px;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .btn-cerrar {
             background: linear-gradient(145deg, var(--rubi), #9f1239);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 30px;
             font-family: 'Cinzel', serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 12px;
+            margin-top: 10px;
             width: 100%;
             touch-action: manipulation;
             transition: all var(--transition-fast);
-            box-shadow: 0 3px 0 #6b1f1f, 0 5px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 0 #6b1f1f, 0 4px 8px rgba(0,0,0,0.3);
             border: 2px solid var(--oro-antiguo);
             letter-spacing: 1px;
         }
         
         .btn-cerrar:active {
             transform: translateY(2px);
-            box-shadow: 0 1px 0 #6b1f1f, 0 3px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 1px 0 #6b1f1f, 0 3px 5px rgba(0,0,0,0.3);
         }
 
         /* Toggle switches victorianos */
         .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 52px;
-            height: 26px;
+            width: 48px;
+            height: 24px;
         }
         
         .toggle-switch input {
@@ -498,7 +531,7 @@
             top: 0; left: 0; right: 0; bottom: 0;
             background-color: #2d3748;
             transition: .2s;
-            border-radius: 26px;
+            border-radius: 24px;
             border: 2px solid var(--oro-antiguo);
         }
         
@@ -508,15 +541,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            height: 20px;
-            width: 20px;
+            font-size: 12px;
+            height: 18px;
+            width: 18px;
             left: 2px;
             bottom: 1px;
             background-color: var(--oro-antiguo);
             transition: .2s;
             border-radius: 50%;
-            box-shadow: 0 0 6px gold;
+            box-shadow: 0 0 5px gold;
             color: #0a3d2e;
         }
         
@@ -525,19 +558,19 @@
         }
         
         input:checked + .slider:before {
-            transform: translateX(26px);
+            transform: translateX(24px);
             content: "💰";
         }
 
         select, input[type="range"] {
-            padding: 6px 10px;
+            padding: 5px 8px;
             border-radius: 25px;
             border: 2px solid var(--oro-antiguo);
             background: rgba(0,0,0,0.3);
             color: var(--marfil);
             font-family: 'Playfair Display', serif;
-            font-size: 0.85rem;
-            width: 110px;
+            font-size: 0.8rem;
+            width: 100px;
             outline: none;
             backdrop-filter: blur(5px);
         }
@@ -567,12 +600,12 @@
         .pantalla2 {
             background: rgba(10, 61, 46, 0.9);
             backdrop-filter: blur(5px);
-            border-radius: 30px;
-            padding: 12px 10px;
+            border-radius: 25px;
+            padding: 6px 5px;
             box-shadow: 
-                0 0 0 5px var(--oro-antiguo),
-                0 0 0 8px rgba(0,0,0,0.5),
-                inset 0 0 20px rgba(212, 175, 55, 0.2),
+                0 0 0 4px var(--oro-antiguo),
+                0 0 0 6px rgba(0,0,0,0.5),
+                inset 0 0 15px rgba(212, 175, 55, 0.2),
                 var(--shadow-3d);
             display: none;
             border: 2px solid var(--oro-oscuro);
@@ -584,9 +617,9 @@
         .pantalla2::before {
             content: "🕰️";
             position: absolute;
-            top: -8px;
-            left: -8px;
-            font-size: 28px;
+            top: -5px;
+            left: -5px;
+            font-size: 22px;
             filter: drop-shadow(0 0 8px gold);
             z-index: 5;
         }
@@ -594,9 +627,9 @@
         .pantalla2::after {
             content: "⏳";
             position: absolute;
-            bottom: -8px;
-            right: -8px;
-            font-size: 28px;
+            bottom: -5px;
+            right: -5px;
+            font-size: 22px;
             filter: drop-shadow(0 0 8px gold);
             transform: rotate(15deg);
             z-index: 5;
@@ -605,27 +638,27 @@
         .pantalla2-header {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 6px;
+            margin-bottom: 5px;
+            padding-bottom: 4px;
             border-bottom: 2px solid var(--oro-antiguo);
         }
         
         .btn-volver {
             background: linear-gradient(145deg, var(--oro-antiguo), var(--oro-oscuro));
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 
-                0 3px 0 #6b4f1f,
-                0 5px 10px rgba(0,0,0,0.3),
+                0 2px 0 #6b4f1f,
+                0 4px 8px rgba(0,0,0,0.3),
                 inset 0 1px 3px rgba(255,255,255,0.5);
-            margin-right: 8px;
+            margin-right: 6px;
             border: 2px solid #ffd700;
             color: #0a3d2e;
             font-weight: bold;
@@ -633,28 +666,28 @@
 
         .btn-volver:active {
             transform: translateY(2px);
-            box-shadow: 0 1px 0 #6b4f1f, 0 3px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 1px 0 #6b4f1f, 0 3px 5px rgba(0,0,0,0.3);
         }
         
         .pantalla2-titulo {
             font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 900;
             color: var(--oro-antiguo);
             flex: 1;
             text-align: center;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-shadow: 
                 2px 2px 0 #000,
                 4px 4px 0 rgba(0,0,0,0.3),
-                0 0 20px gold;
+                0 0 15px gold;
         }
 
         /* ===== SIEMPRE 2 COLUMNAS EN MÓVILES ===== */
         .game-layout {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 8px;
+            gap: 5px;
         }
 
         .left-panel {
@@ -664,11 +697,11 @@
         .bingo-letters {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            border-radius: 20px 20px 0 0;
+            border-radius: 15px 15px 0 0;
             overflow: hidden;
             font-family: 'Cinzel', serif;
             font-weight: 900;
-            font-size: 1.2rem;
+            font-size: 1rem;
             width: 100%;
             border: 2px solid var(--oro-antiguo);
             border-bottom: none;
@@ -676,7 +709,7 @@
         
         .letter-col {
             text-align: center;
-            padding: 6px 0;
+            padding: 4px 0;
             color: white;
             text-shadow: 0 0 8px gold, 1px 1px 0 black;
             border-right: 2px solid var(--oro-antiguo);
@@ -704,7 +737,7 @@
             flex-direction: column;
             border: 2px solid var(--oro-antiguo);
             border-top: none;
-            border-radius: 0 0 20px 20px;
+            border-radius: 0 0 15px 15px;
             overflow: hidden;
             background: rgba(255,255,255,0.05);
             width: 100%;
@@ -722,7 +755,7 @@
 
         .table-cell {
             text-align: center;
-            padding: 2px 1px;
+            padding: 1px;
             border-right: 1px solid var(--oro-antiguo);
             display: flex;
             justify-content: center;
@@ -736,32 +769,32 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             font-family: 'Cinzel', serif;
             font-weight: 700;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: white;
             background: radial-gradient(circle at 30% 30%, #fff, #e0e0e0);
             box-shadow: 
-                0 2px 0 rgba(0,0,0,0.2),
-                0 3px 6px rgba(0,0,0,0.3),
-                inset 0 -1px 2px rgba(0,0,0,0.2),
-                0 0 8px gold;
+                0 1px 0 rgba(0,0,0,0.2),
+                0 2px 4px rgba(0,0,0,0.3),
+                inset 0 -1px 1px rgba(0,0,0,0.2),
+                0 0 6px gold;
             transition: all var(--transition-fast);
             margin: 0 auto;
             border: 1px solid var(--oro-antiguo);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
         }
 
         .table-cell.active .numero-3d {
             background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b);
             transform: scale(1.1);
             box-shadow: 
-                0 2px 0 #6b4f1f,
-                0 4px 8px rgba(255,215,0,0.5),
-                0 0 15px gold;
+                0 1px 0 #6b4f1f,
+                0 3px 6px rgba(255,215,0,0.5),
+                0 0 12px gold;
             border: 2px solid white;
             color: white;
         }
@@ -770,9 +803,9 @@
             background: radial-gradient(circle at 30% 30%, #ff69b4, #ff1493);
             transform: scale(1.1);
             box-shadow: 
-                0 2px 0 #8b1f4f,
-                0 4px 12px rgba(255,105,180,0.6),
-                0 0 20px #ff69b4;
+                0 1px 0 #8b1f4f,
+                0 3px 8px rgba(255,105,180,0.6),
+                0 0 15px #ff69b4;
             border: 2px solid gold;
             color: white;
         }
@@ -780,36 +813,36 @@
         .right-panel {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 5px;
         }
 
         .ball-display {
             text-align: center;
             background: linear-gradient(145deg, #b87333, #8b5a2b);
-            padding: 8px 4px;
-            border-radius: 25px;
+            padding: 5px 3px;
+            border-radius: 20px;
             border: 3px solid var(--oro-antiguo);
-            box-shadow: inset 0 0 12px rgba(0,0,0,0.5), 0 5px 10px rgba(0,0,0,0.3);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3);
         }
         
         .ball-number-large {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 900;
             color: white;
             background: radial-gradient(circle at 30% 30%, #2ecc71, #0a3d2e);
             box-shadow: 
-                0 4px 0 #0a2f1f,
-                0 8px 15px rgba(0,0,0,0.4),
-                inset 0 -2px 4px rgba(0,0,0,0.4),
-                0 0 15px #2ecc71;
-            margin: 4px auto;
+                0 3px 0 #0a2f1f,
+                0 5px 10px rgba(0,0,0,0.4),
+                inset 0 -2px 3px rgba(0,0,0,0.4),
+                0 0 12px #2ecc71;
+            margin: 3px auto;
             border: 3px solid var(--oro-antiguo);
             position: relative;
         }
@@ -817,15 +850,15 @@
         .ball-number-large::after {
             content: "💎";
             position: absolute;
-            top: -5px;
-            right: -5px;
-            font-size: 18px;
+            top: -3px;
+            right: -3px;
+            font-size: 14px;
             filter: drop-shadow(0 0 5px gold);
         }
         
         .ball-info {
             font-family: 'Cinzel', serif;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: var(--marfil);
             font-weight: 700;
             text-shadow: 1px 1px 2px black;
@@ -834,56 +867,56 @@
         .recent-balls {
             display: flex;
             justify-content: center;
-            gap: 4px;
+            gap: 3px;
             flex-wrap: wrap;
         }
         
         .recent-ball {
-            width: 28px;
-            height: 28px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Cinzel', serif;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.65rem;
             background: linear-gradient(145deg, #c0c0c0, #808080);
             box-shadow: 
-                0 2px 0 #4a4a4a,
-                0 3px 6px rgba(0,0,0,0.3),
-                inset 0 -1px 2px rgba(0,0,0,0.3),
-                0 0 6px silver;
+                0 1px 0 #4a4a4a,
+                0 2px 4px rgba(0,0,0,0.3),
+                inset 0 -1px 1px rgba(0,0,0,0.3),
+                0 0 5px silver;
             color: white;
             border: 2px solid var(--oro-antiguo);
-            text-shadow: 0 1px 2px black;
+            text-shadow: 0 1px 1px black;
         }
 
         .start-indicator {
             text-align: center;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: var(--marfil);
             font-weight: 700;
-            padding: 6px;
+            padding: 4px;
             background: rgba(0,0,0,0.4);
-            border-radius: 25px;
+            border-radius: 20px;
             border: 2px solid var(--oro-antiguo);
             backdrop-filter: blur(5px);
             position: relative;
-            padding-left: 22px;
+            padding-left: 16px;
         }
         
         .start-indicator::before {
             content: "";
             position: absolute;
-            left: 8px;
+            left: 6px;
             top: 50%;
             transform: translateY(-50%);
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: #4ade80;
-            box-shadow: 0 0 8px #4ade80;
+            box-shadow: 0 0 6px #4ade80;
             animation: pulse 1.5s infinite;
         }
         
@@ -895,23 +928,23 @@
 
         .control-buttons {
             display: flex;
-            gap: 6px;
+            gap: 4px;
         }
 
         .btn-control-small {
             flex: 1;
-            padding: 8px 2px;
+            padding: 5px 2px;
             border: none;
-            border-radius: 30px;
+            border-radius: 25px;
             font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             font-weight: 700;
             cursor: pointer;
-            min-height: 40px;
+            min-height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            gap: 3px;
             transition: all 0.05s ease;
             text-transform: uppercase;
             border: 2px solid var(--oro-antiguo);
@@ -920,7 +953,7 @@
         .btn-play {
             background: linear-gradient(145deg, #1e3a8a, #0a1f4a);
             color: var(--oro-antiguo);
-            box-shadow: 0 3px 0 #0a0f2a, 0 4px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 0 #0a0f2a, 0 3px 6px rgba(0,0,0,0.3);
         }
         
         .btn-play:active {
@@ -936,7 +969,7 @@
         .btn-stop {
             background: linear-gradient(145deg, #9f1239, #6b1f1f);
             color: var(--oro-antiguo);
-            box-shadow: 0 3px 0 #4a0f1f, 0 4px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 0 #4a0f1f, 0 3px 6px rgba(0,0,0,0.3);
         }
         
         .btn-stop:active {
@@ -948,20 +981,20 @@
             background: linear-gradient(145deg, var(--oro-antiguo), var(--oro-oscuro));
             color: #0a3d2e;
             border: none;
-            padding: 8px 6px;
-            border-radius: 30px;
+            padding: 5px 4px;
+            border-radius: 25px;
             font-family: 'Cinzel', serif;
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-weight: 800;
             cursor: pointer;
             text-transform: uppercase;
-            box-shadow: 0 3px 0 #6b4f1f, 0 4px 8px rgba(0,0,0,0.3);
-            min-height: 45px;
+            box-shadow: 0 2px 0 #6b4f1f, 0 3px 6px rgba(0,0,0,0.3);
+            min-height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            margin-top: 3px;
+            margin-top: 2px;
             border: 2px solid #ffd700;
         }
         
@@ -973,7 +1006,7 @@
         .btn-extraer:disabled {
             opacity: 0.5;
             transform: none;
-            box-shadow: 0 2px 0 #6b4f1f;
+            box-shadow: 0 1px 0 #6b4f1f;
             pointer-events: none;
         }
         
@@ -985,15 +1018,15 @@
             background: linear-gradient(145deg, #e63946, #9f1239);
             color: var(--oro-antiguo);
             border: none;
-            padding: 8px 6px;
-            border-radius: 30px;
+            padding: 5px 4px;
+            border-radius: 25px;
             font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 900;
             cursor: pointer;
             text-transform: uppercase;
-            box-shadow: 0 3px 0 #6b1f2f, 0 4px 8px rgba(0,0,0,0.3);
-            min-height: 48px;
+            box-shadow: 0 2px 0 #6b1f2f, 0 3px 6px rgba(0,0,0,0.3);
+            min-height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1011,56 +1044,56 @@
 
         .entra-text {
             text-align: center;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: var(--marfil);
             font-weight: 600;
-            margin: 3px 0;
+            margin: 2px 0;
             font-style: italic;
         }
 
         .web-link a {
             font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: var(--oro-antiguo);
             text-decoration: none;
             font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 6px 4px;
+            padding: 4px 3px;
             background: linear-gradient(145deg, #b8860b, #6b4f1f);
-            border-radius: 25px;
+            border-radius: 20px;
             border: 2px solid var(--oro-antiguo);
-            min-height: 36px;
+            min-height: 30px;
             box-shadow: 0 2px 0 #4a3a1f;
         }
 
         .logo-footer-p2 {
-            width: 80px;
+            width: 60px;
             height: auto;
-            margin: 4px auto 0;
+            margin: 2px auto 0;
             display: block;
-            filter: drop-shadow(0 0 6px gold);
+            filter: drop-shadow(0 0 5px gold);
             border: 2px solid var(--oro-antiguo);
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 2px;
         }
 
         /* Modales */
         .modal, .numeros-modal {
             background: linear-gradient(145deg, #0a3d2e, #1a5e3a);
-            border-radius: 30px;
-            padding: 18px 12px;
+            border-radius: 25px;
+            padding: 15px 10px;
             border: 3px solid var(--oro-antiguo);
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(1);
             width: 90%;
-            max-width: 300px;
+            max-width: 280px;
             z-index: 2000;
             display: none;
-            box-shadow: 0 0 0 4px rgba(212,175,55,0.3), 0 12px 25px rgba(0,0,0,0.6);
+            box-shadow: 0 0 0 4px rgba(212,175,55,0.3), 0 10px 20px rgba(0,0,0,0.6);
             transition: transform 0.2s ease;
         }
 
@@ -1068,25 +1101,25 @@
             font-family: 'Cinzel', serif;
             color: var(--oro-antiguo);
             text-align: center;
-            margin-bottom: 12px;
-            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-size: 1rem;
         }
 
         .modal-buttons {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .btn-modal {
-            padding: 8px 16px;
+            padding: 6px 14px;
             border: none;
             border-radius: 25px;
             font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
             cursor: pointer;
-            min-width: 70px;
+            min-width: 65px;
             border: 2px solid var(--oro-antiguo);
             transition: all 0.05s ease;
         }
@@ -1111,20 +1144,20 @@
         .numeros-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 5px;
+            gap: 4px;
             justify-content: center;
-            max-height: 220px;
+            max-height: 200px;
             overflow-y: auto;
-            padding: 6px;
-            margin-bottom: 10px;
+            padding: 5px;
+            margin-bottom: 8px;
             background: rgba(0,0,0,0.3);
-            border-radius: 20px;
+            border-radius: 15px;
             border: 2px solid var(--oro-antiguo);
         }
 
         .numero-item {
-            width: 34px;
-            height: 34px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1133,20 +1166,20 @@
             font-weight: 700;
             color: white;
             background: radial-gradient(circle at 30% 30%, #fff, #e0e0e0);
-            box-shadow: 0 2px 0 rgba(0,0,0,0.3), 0 3px 6px rgba(0,0,0,0.3);
-            font-size: 0.8rem;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 0.7rem;
             border: 2px solid var(--oro-antiguo);
-            text-shadow: 0 1px 2px black;
+            text-shadow: 0 1px 1px black;
         }
 
         .btn-cerrar-modal {
             background: linear-gradient(145deg, var(--zafiro), #0a1f4a);
             color: var(--oro-antiguo);
             border: none;
-            padding: 10px 16px;
+            padding: 8px 14px;
             border-radius: 25px;
             font-family: 'Cinzel', serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
@@ -1161,9 +1194,9 @@
 
         .result-actions {
             background: rgba(10, 61, 46, 0.8);
-            border-radius: 30px;
-            padding: 6px;
-            margin: 6px 0;
+            border-radius: 25px;
+            padding: 4px;
+            margin: 4px 0;
             border: 2px solid var(--oro-antiguo);
             display: none;
             text-align: center;
@@ -1173,19 +1206,19 @@
         .action-buttons {
             display: flex;
             justify-content: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .btn-result {
-            padding: 5px 10px;
+            padding: 4px 8px;
             border: none;
-            border-radius: 25px;
+            border-radius: 20px;
             font-family: 'Cinzel', serif;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             cursor: pointer;
-            min-height: 32px;
-            min-width: 80px;
+            min-height: 28px;
+            min-width: 70px;
             background: linear-gradient(145deg, var(--oro-antiguo), var(--oro-oscuro));
             color: #0a3d2e;
             box-shadow: 0 2px 0 #6b4f1f;
@@ -1261,17 +1294,25 @@
     <div class="app">
         <!-- PANTALLA 1: BIENVENIDA VICTORIANA CON FONDO.PNG -->
         <div class="pantalla1" id="pantalla1">
-            <div class="bienvenido">BIENVENIDO AL</div>
+            <div class="bienvenido">BIENVENIDO A:</div>
             
             <img src="Logo-oficial-lineal.jpg?v=3.2.0" alt="Logo Calipso Bingo" class="logo-pantalla1">
             
+            <!-- Indicador de modos de juego -->
+            <div class="modos-indicador">
+                <span>🎯 2 MODOS DE JUEGO 🎯</span>
+            </div>
+            <div class="modos-indicador" style="font-size:0.7rem; margin-top:-2px;">
+                Bingo 75  |  Bingo en Línea
+            </div>
+            
             <div class="modo-juego">
-                <button class="btn-modo" id="btnJugar75">🎯 BINGO 75</button>
-                <button class="btn-modo" id="btnJugarLinea">📏 BINGO LÍNEA</button>
+                <button class="btn-modo" id="btnJugar75">BINGO 75</button>
+                <button class="btn-modo" id="btnJugarLinea">BINGO LÍNEA</button>
             </div>
             
             <button class="btn-config" id="btnAbrirConfig">
-                <span>⚙️</span> CONFIGURACIÓN
+                <span>⚙️</span> CONFIGIGURACIÓN
             </button>
             
             <div class="divider"></div>
@@ -1285,7 +1326,7 @@
             </div>
             
             <div class="footer-credits">
-                <p class="copyright">© 2026 Calipso Bingo - Edición Victoriana</p>
+                <p class="copyright">© 2026 Calipso Bingo - Versión 2.0</p>
                 <p class="developer">Desarrollado por TRITTON Business Architecture</p>
                 <p class="certified">⚜️ Legal Compliance & International Trade Certified ⚜️</p>
             </div>
@@ -1294,7 +1335,7 @@
         <!-- MODAL DE CONFIGURACIÓN -->
         <div class="modal-overlay" id="modalOverlay"></div>
         <div class="config-modal" id="configModal">
-            <div class="config-title">⚙️ CONFIGURACIÓN</div>
+            <div class="config-title">⚙️ CONFIG</div>
             
             <div class="config-option">
                 <span class="config-label">Sonido</span>
@@ -1323,7 +1364,7 @@
             <div class="config-option">
                 <span class="config-label">Tiempo</span>
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <input type="range" id="tiempoBolas" min="4" max="15" value="4" step="1" style="width: 80px;">
+                    <input type="range" id="tiempoBolas" min="4" max="15" value="4" step="1" style="width: 70px;">
                     <span class="config-value" id="tiempoValor">4s</span>
                 </div>
             </div>
@@ -1341,7 +1382,7 @@
 
         <!-- MODAL DE NÚMEROS FLOTANTE -->
         <div class="numeros-modal" id="numerosModal">
-            <h3>📋 NÚMEROS SORTEADOS</h3>
+            <h3>📋 NÚMEROS</h3>
             <div class="numeros-grid" id="numerosModalGrid"></div>
             <button class="btn-cerrar-modal" id="cerrarNumerosModal">CERRAR</button>
         </div>
