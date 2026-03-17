@@ -623,13 +623,13 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            font-size: 1.5rem; /* Aumentado para mejor visualización de la flecha */
+            font-size: 1.5rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 
-                0 4px 0 #6b4f1f, /* Sombra más pronunciada para efecto 3D */
+                0 4px 0 #6b4f1f,
                 0 6px 8px rgba(0,0,0,0.4),
                 inset 0 -2px 3px rgba(0,0,0,0.3),
                 inset 0 2px 3px rgba(255,255,255,0.6);
@@ -638,12 +638,12 @@
             color: #0a3d2e;
             font-weight: bold;
             text-shadow: 0 1px 2px rgba(255,255,255,0.5);
-            transform: translateY(-2px); /* Posición inicial elevada para efecto 3D */
+            transform: translateY(-2px);
             transition: all 0.1s ease;
         }
 
         .btn-volver:active {
-            transform: translateY(2px); /* Al presionar baja para efecto 3D */
+            transform: translateY(2px);
             box-shadow: 0 2px 0 #6b4f1f, 0 4px 6px rgba(0,0,0,0.3);
         }
         
@@ -1029,34 +1029,41 @@
 
         .entra-text {
             text-align: center;
-            font-size: 0.65rem;
+            font-size: 0.8rem;
             color: var(--marfil);
             font-weight: 600;
             margin: 4px 0 2px;
             font-style: italic;
+            width: 100%;
+        }
+
+        .web-link {
+            width: 100%;
+            margin: 0;
         }
 
         .web-link a {
             font-family: 'Cinzel', serif;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: var(--oro-antiguo);
             text-decoration: none;
             font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 6px 4px;
+            padding: 8px 8px;
             background: linear-gradient(145deg, #b8860b, #6b4f1f);
             border-radius: 20px;
             border: 2px solid var(--oro-antiguo);
-            min-height: 36px;
+            min-height: 44px;
+            width: 100%;
             box-shadow: 0 2px 0 #4a3a1f;
         }
 
         .logo-footer-p2 {
             width: 150px;
             height: auto;
-            margin: 2px auto 0;
+            margin: 10px auto 0;
             display: block;
             filter: drop-shadow(0 0 6px gold);
             padding: 2px;
