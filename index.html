@@ -737,9 +737,6 @@
             text-shadow: 0 1px 1px rgba(0,0,0,0.5);
         }
 
-        /* Colores base por columna (aplicados directamente en JS) */
-        /* Los estilos específicos se aplican mediante JS en crearTablaNumeros */
-
         /* Números activos en amarillo - sobrescribe el color base */
         .table-cell.active .numero-3d {
             background: radial-gradient(circle at 30% 30%, var(--numero-activo), var(--numero-activo-oscuro)) !important;
@@ -1001,19 +998,21 @@
             display: none;
         }
 
-        /* Footer promocional en la pantalla 2 - justo encima del borde inferior */
+        /* Footer promocional - centrado perfectamente */
         .promo-footer {
             margin-top: 15px;
             width: 100%;
             border-top: 2px solid var(--oro-antiguo);
-            padding: 10px 0 5px 0;
-            background: rgba(10, 61, 46, 0.8);
+            padding: 10px 0 8px 0;
+            background: rgba(10, 61, 46, 0.9);
             border-radius: 0 0 24px 24px;
             margin-bottom: 0;
-            position: relative;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
         .entra-text {
@@ -1021,15 +1020,19 @@
             font-size: 0.8rem;
             color: var(--marfil);
             font-weight: 600;
-            margin: 4px 0 2px;
+            margin: 0 auto 6px auto;
             font-style: italic;
             width: 100%;
+            display: block;
         }
 
         .web-link {
             width: 100%;
-            margin: 0;
-            padding: 0 10px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
         }
 
         .web-link a {
@@ -1041,13 +1044,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 8px 8px;
+            padding: 8px 16px;
             background: linear-gradient(145deg, #b8860b, #6b4f1f);
             border-radius: 20px;
             border: 2px solid var(--oro-antiguo);
             min-height: 44px;
             width: 100%;
+            max-width: 280px;
             box-shadow: 0 2px 0 #4a3a1f;
+            margin: 0 auto;
+            text-align: center;
+            white-space: nowrap;
+            box-sizing: border-box;
         }
 
         .logo-footer-p2 {
@@ -1409,14 +1417,7 @@
 
                     <img src="logo-gala.png" alt="Logo Calipso Bingo" class="logo-footer-p2">
 
-                    <!-- Footer promocional - justo encima del borde inferior -->
-                    <div class="promo-footer">
-                        <div class="entra-text">Entra, juega y gana en:</div>
-                        <div class="web-link">
-                            <a href="https://www.calipsobingo.com" target="_blank" rel="noopener noreferrer">www.calipsobingo.com</a>
-                        </div>
-                    </div>
-
+                    <!-- Footer promocional - centrado perfectamente -->
                     <div class="modal" id="stopConfirmModal">
                         <p>¿Finalizar partida?</p>
                         <div class="modal-buttons">
@@ -1439,6 +1440,12 @@
                             <button class="btn-modal si" id="lineaGanadoraOk">OK</button>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="promo-footer">
+                <div class="entra-text">Entra, juega y gana en:</div>
+                <div class="web-link">
+                    <a href="https://www.calipsobingo.com" target="_blank" rel="noopener noreferrer">www.calipsobingo.com</a>
                 </div>
             </div>
         </div>
